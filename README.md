@@ -30,9 +30,9 @@ Uses [luamin](https://github.com/mathiasbynens/luamin) to compress copies of you
 
 ### `gulp merge-animations` ###
 
-Will combine _*.ani.png_ files into _*.a.png_ files. Each file will be a row in the output file. Files will be grouped by the part before the first underscore \_ of the source filename.
+Will combine `*.ani.png` files into `*.a.png` files. Each file will be a row in the output file. Files will be grouped by the part before the first underscore \_ of the source filename.
 
-Example: _sample_move0.ani.png_, _sample_move1.ani.png_, _sample_move2.ani.png_, _sample_move3.ani.png_ will be converted to _sample.a.png_.
+Example: `sample_move0.ani.png`, `sample_move1.ani.png`, `sample_move2.ani.png`, `sample_move3.ani.png` will be combined to `sample.a.png`.
 
 ### `gulp build` ###
 
