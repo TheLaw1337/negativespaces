@@ -41,14 +41,3 @@ Does all tasks above, except for the launch task.
 ### `gulp` / `gulp default` ###
 
 Builds once and starts the watcher on all files to trigger specific tasks, automatically. Should be used before starting your programming session.
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
