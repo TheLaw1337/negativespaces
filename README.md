@@ -18,26 +18,56 @@ npm install
 
 - Install [Love2d Snippets](https://marketplace.visualstudio.com/items?itemName=pixelwar.love2dsnippets), which makes your life easier.
 
+- Configure your `gulfconf.js` to point to the right directories. Toggle on what you need to prepare. 
+
 ## Tasks ##
 
 ### ALT+L (Launch) ###
 
 Starts the game at the src directory. If it does not, please check the contents of _launch.sh_ (UNIX) / _launch.bat_ (WINDOWS) and adjust.
 
-### `gulp minify-lua` ###
+### gulp delete-dist ###
 
-Uses [luamin](https://github.com/mathiasbynens/luamin) to compress copies of your lua files, that will be put in the _dist_ folder.
+Deletes the `dist`folder with all its contents.
 
-### `gulp merge-animations` ###
+### gulp dist ###
 
-Will combine `*.ani.png` files into `*.a.png` files. Each file will be a row in the output file. Files will be grouped by the part before the first underscore \_ of the source filename.
+Copies all source files to the `dist` folder. Specify extensions in the `gulpconf.js`.
+
+### gulp minify-lua ###
+
+Uses [luamin](https://github.com/mathiasbynens/luamin) to compress your lua files, that are located in the _dist_ folder.
+
+### gulp merge-animations ###
+
+Will combine `*.ani.png` files in the `src` and `dist/src` folder into `*.a.png` files. Each file will be a row in the output file. Files will be grouped by the part before the first underscore \_ of the source filename.
 
 Example: `sample_move0.ani.png`, `sample_move1.ani.png`, `sample_move2.ani.png`, `sample_move3.ani.png` will be combined to `sample.a.png`.
 
-### `gulp build` ###
+### gulp clean-dist ###
 
-Does all tasks above, except for the launch task.
+Gets rid of unused files like `*.ani.png` files
 
-### `gulp` / `gulp default` ###
+### gulp make-love ###
 
-Builds once and starts the watcher on all files to trigger specific tasks, automatically. Should be used before starting your programming session.
+Builds a `.love` file from the `dist/src` directory and stores it in `dist`.
+
+### gulp make-win ###
+
+Combines the `.love` file with `love.exe` to the folder `dist/win` and copies `.dll` dependencies to that folder, too.
+
+### gulp make-android ###
+
+Copies the `.love` file and all files at `inject/android` to the android port and runs `gradlew build` in that folder. 
+
+### gulp make-mac ###
+
+This feature is not supported. You are free to implement it and add a pull request. 
+
+### gulp make-ios ###
+
+Copies the `.love` file and all files at `inject/ios` to the iOS port. You have to compile it yourself, afterwards. 
+
+### gulp / gulp build ###
+
+Does all tasks above, except for the launch task. `make-*` task will only execute if they are enabled in the `gulpconf.js`

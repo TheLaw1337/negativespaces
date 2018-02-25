@@ -6,11 +6,16 @@
   "dependencies": {
     "gulp": "^3.9.1",
     "gulp-clean": "^0.4.0",
+    "gulp-exec": "^3.0.1",
     "gulp-foreach": "^0.1.0",
     "gulp-luaminify": "0.0.1",
     "gulp-plumber": "^1.2.0",
+    "gulp-size": "^3.0.0",
+    "gulp-src-files": "0.0.16",
     "gulp.spritesmith": "^6.9.0",
-    "run-sequence": "^2.2.1"
+    "mkdirp": "^0.5.1",
+    "run-sequence": "^2.2.1",
+    "zip-folder": "^1.0.0"
   },
   "devDependencies": {},
   "author": "",
