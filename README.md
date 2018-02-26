@@ -24,15 +24,11 @@ npm install
 
 ### ALT+L (Launch) ###
 
-Starts the game at the src directory. If it does not, please check the contents of _launch.sh_ (UNIX) / _launch.bat_ (WINDOWS) and adjust.
-
-### gulp delete-dist ###
-
-Deletes the `dist`folder with all its contents.
+Starts the game at the src directory. If it does not, please check the contents of `launch.sh` (UNIX) / `launch.bat` (WINDOWS) and adjust.
 
 ### gulp dist ###
 
-Copies all source files to the `dist` folder. Specify extensions in the `gulpconf.js`.
+Copies all source files to the `dist` folder. Specify extensions in the `gulpconf.js`. Will clean the `dist` folder beforehand.
 
 ### gulp minify-lua ###
 
@@ -43,10 +39,6 @@ Uses [luamin](https://github.com/mathiasbynens/luamin) to compress your lua file
 Will combine `*.ani.png` files in the `src` and `dist/src` folder into `*.a.png` files. Each file will be a row in the output file. Files will be grouped by the part before the first underscore \_ of the source filename.
 
 Example: `sample_move0.ani.png`, `sample_move1.ani.png`, `sample_move2.ani.png`, `sample_move3.ani.png` will be combined to `sample.a.png`.
-
-### gulp clean-dist ###
-
-Gets rid of unused files like `*.ani.png` files
 
 ### gulp make-love ###
 
