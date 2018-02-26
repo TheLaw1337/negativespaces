@@ -5,7 +5,7 @@ let process = require("process");
 let mkdirp = require("mkdirp");
 let zipFolder = require("zip-folder");
 let gulp = require("gulp");
-let conf = require("./gulpconf")
+let conf = require("./gulpconf");
 
 let runSequence = require("run-sequence");
 var size = require("gulp-size");
@@ -78,14 +78,20 @@ gulp.task("merge-animations", ["reg-animations"], function () {
 	return Promise.all(subTasks).then();
 });
 
-gulp.task("clean-dist", function() {
-	return gulp.src("./**/*.ani.{png,css}", { read: false })
+gulp.task("clean", function() {
+	return gulp.src("./dist/src/**/*.ani.{png,css}", { read: false })
+	.pipe(deleteFile({
+		reg: /.*/, deleteMatch: true
+	}))
+	.pipe(func.atEnd(function() {
+		gulp.src("./src/**/*.ani.css", { read: false })
 		.pipe(deleteFile({
 			reg: /.*/, deleteMatch: true
-		}));
+		}))
+	}))
 })
 
-gulp.task("make-love", ["clean-dist"], function () {
+gulp.task("make-love", ["clean"], function () {
 	return new Promise(function (resolve, reject) {
 		zipFolder("./dist/src", "./dist/game.love", function (ziperr) {
 			if (ziperr) reject();
@@ -97,28 +103,26 @@ gulp.task("make-love", ["clean-dist"], function () {
 gulp.task("make-win", function () {
 	let loveDependencyExt = "*.{exe,dll}"
 	let p = (win ? conf.windows["loveWinDir"] + "\\" : conf["loveWinDir"] + "/") + loveDependencyExt;
-	return Promise.all([
-		gulp.src(p, { read: true })
-    	.pipe(size({ showFiles: true }))
-			.pipe(gulp.dest("./dist/win"))
-			.pipe(func.atEnd(function() {
-				var cmd;
-				if(win) {
-					cmd = "copy /b dist\\win\\love.exe+dist\\game.love dist\\win\\game.exe";
-				}
-				else {
-					cmd = "cat ./dist/win/love.exe ./dist/game.love > ./dist/win/game.exe";
-				}
-				console.log(cmd);
-				proc = exec(cmd, function(err, stdout, stderr) {
-					console.log(stdout);
-				});			
-				proc.on("exit", function (code) {
-					fs.unlinkSync("dist/win/love.exe");
-					fs.unlinkSync("dist/win/lovec.exe");
-				});
-			}))
-	]);
+	return gulp.src(p, { read: true })
+		.pipe(size({ showFiles: true }))
+		.pipe(gulp.dest("./dist/win"))
+		.pipe(func.atEnd(function() {
+			var cmd;
+			if(win) {
+				cmd = "copy /b dist\\win\\love.exe+dist\\game.love dist\\win\\game.exe";
+			}
+			else {
+				cmd = "cat ./dist/win/love.exe ./dist/game.love > ./dist/win/game.exe";
+			}
+			console.log(cmd);
+			proc = exec(cmd, function(err, stdout, stderr) {
+				console.log(stdout);
+			});			
+			proc.on("exit", function (code) {
+				fs.unlinkSync("dist/win/love.exe");
+				fs.unlinkSync("dist/win/lovec.exe");
+			});
+		}));
 });
 
 gulp.task("make-android", function () {
