@@ -103,7 +103,7 @@ gulp.task("make-love", ["clean"], function () {
 gulp.task("make-win", function () {
 	let loveDependencyExt = "*.{exe,dll}"
 	let p = (win ? conf.windows["loveWinDir"] + "\\" : conf["loveWinDir"] + "/") + loveDependencyExt;
-	return gulp.src(p, { read: true })
+	return gulp.src(path.normalize(p), { read: true })
 		.pipe(size({ showFiles: true }))
 		.pipe(gulp.dest("./dist/win"))
 		.pipe(func.atEnd(function() {
@@ -126,22 +126,38 @@ gulp.task("make-win", function () {
 });
 
 gulp.task("make-android", function () {
-
+	let p = (win ? conf.windows["loveAndroidDir"] + "\\" : conf["loveAndroidDir"] + "/");
+	return gulp.src("./inject/android/**/*", { read: true })
+		.pipe(size({ showFiles: true }))
+		.pipe(gulp.dest(path.normalize(p)))
+		.pipe(func.atEnd(function() {
+			fs.copyFileSync("./dist/game.love", path.normalize(p) + "/app/src/main/assets/game.love");
+			// let cmd = "\"" + p + "gradlew build\"";
+			// console.log(cmd);
+			// proc = exec(cmd, function(err, stdout, stderr) {
+			// 	console.log(stdout);
+			// });
+		}));
 });
 
 gulp.task("make-mac", function () {
 	return new Promise(function (resolve, reject) {
 		mkdirp("./mac", function (err) {
 			if (err) reject();
-			else {
-				throw new Error("Mac build is not implemented as of now.");
-			}
 		});
+		throw new Error("Mac build is not implemented as of now.");
+		reject();
 	});
 });
 
-gulp.task("make-ios", ["make-love"], function () {
-
+gulp.task("make-ios", function () {
+	let p = (win ? conf.windows["loveiOSDir"] + "\\" : conf["loveiOSDir"] + "/");
+	return gulp.src("./inject/iOS/**/*", { read: true })
+		.pipe(size({ showFiles: true }))
+		.pipe(gulp.dest(path.normalize(p)))
+		.pipe(func.atEnd(function() {
+			fs.copyFileSync("./dist/game.love", path.normalize(p) + "/platform/xcode/game.love");
+		}));
 });
 
 gulp.task("build", function () {

@@ -1,4 +1,4 @@
-function love.load()
+function love.load(args)
 	print("Hello World.")
 end
 

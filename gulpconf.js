@@ -2,7 +2,7 @@
 module.exports = {
 	"srcExt": "lua,png,jpg", // files to copy to dist
 
-	"makeWin": true, // will create build exe on default build (no final SFX compression, feel free to pull request)
+	"makeWin": false, // will create build exe on default build (no final SFX compression, feel free to pull request)
 	"loveWinDir": "/Users/marty/love-win32", // contains love.exe and dll-files
 
 	"makeAndroid": false, // will copy .love file and injection files into the directory below and will run gradlew build on default build
