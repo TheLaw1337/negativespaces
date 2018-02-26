@@ -6,6 +6,7 @@
   "dependencies": {
     "gulp": "^3.9.1",
     "gulp-clean": "^0.4.0",
+    "gulp-foreach": "^0.1.0",
     "gulp-delete-file": "^1.0.2",
     "gulp-exec": "^3.0.1",
     "gulp-function": "^2.2.14",
@@ -14,6 +15,7 @@
     "gulp-size": "^3.0.0",
     "gulp-src-files": "0.0.16",
     "gulp.spritesmith": "^6.9.0",
+    "run-sequence": "^2.2.1"
     "mkdirp": "^0.5.1",
     "run-sequence": "^2.2.1",
     "zip-folder": "^1.0.0"

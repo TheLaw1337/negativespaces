@@ -1,22 +1,22 @@
+
 module.exports = {
-	"srcExt": "lua,png", // Extensions of files to distribute
+	"srcExt": "lua,png,jpg", // files to copy to dist
 
-	"makeWin": true, // make exe from game
-	"loveWinDir": "/Users/marty/love-win32", // unix path to love.exe
+	"makeWin": true, // will create build exe on default build (no final SFX compression, feel free to pull request)
+	"loveWinDir": "/Users/marty/love-win32", // contains love.exe and dll-files
 
-	"makeAndroid": false, // copy inject files and love file to android fork and run grudlew build
-	"loveAndroidDir": "/Users/marty/_my_/AS/love2d-admob-inappbilling-gameservices-android", // inject files are very specific to this fork (not released yet, so use your own inject files)
+	"makeAndroid": false, // will copy .love file and injection files into the directory below and will run gradlew build on default build
+	"loveAndroidDir": "/Users/marty/_my_/AS/love2d-admob-inappbilling-gameservices-android", // injection files will work with with the AdMob+InAppBilling-GameServices fork - not available yet
 
-	"makeMac": false, // not supporting, feel free to implement and pull request
-	"loveMacDir": "", 
+	"makeMac": false, // won't work / not supported (sry, feel free to pull request)
+	"loveMacDir": "/Applications",
 
-	"makeiOS": false, // copy inject files and love file to iOS fork
-	"loveiOSDir": "/Users/marty/_my_/XC/love2d-admob-inapppurchases-gamecenter-ios", // inject files are very specific to this fork (not released yet, so use your own inject files)
+	"makeiOS": false, // will copy .love file and injection files into the directory below on default build
+	"loveiOSDir": "/Users/marty/_my_/XC/love2d-admob-inapppurchases-gamecenter-ios", // injection files will work with with the AdMob+InAppPurchases-GameCenter fork - not available yet
 
-	windows: { // set those when working on Windows
-		"loveWinDir": "C:\\Program Files (x86)\\LOVE", // win path to love.exe
+	"windows" : { // all paths above for Windows systems
+		"loveWinDir": "C:\\Program Files (x86)\\LOVE",
 		"loveAndroidDir": "Z:\\_my_\\AS\\love2d-admob-inappbilling-gameservices-android",
-		"loveMacDir": "",
 		"loveiOSDir": "Z:\\_my_\\XC\\love2d-admob-inapppurchases-gamecenter-ios",
 	}
-};
+}

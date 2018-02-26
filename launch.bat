@@ -1,3 +1,2 @@
 taskkill /IM love.exe
-
-"%PROGRAMFILES%\LOVE\love.exe" ./src --console
+"%PROGRAMFILES(X86)%\LOVE\love.exe" ./src --console

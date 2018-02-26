@@ -1,3 +1,44 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 package org.love2d.android;
 
 import org.love2d.android.GameActivity;
@@ -521,7 +562,6 @@ public class AdActivity extends GameActivity {
 		return rewardQty;
 	}
 }
-
 
 
 
