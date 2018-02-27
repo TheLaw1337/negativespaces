@@ -1,6 +1,6 @@
 # Your new game project #
 
-This is your VSCode template for building your LÃ–VE game. It's tested on Windows and Mac, should work on Linux, too.
+This is your VSCode template for building your LÖVE game. It's tested on Windows and Mac, should work on Linux, too.
 
 Start by forking or cloning this repo and open it with Visual Studio Code.
 
@@ -17,6 +17,7 @@ npm install
 ```json
 { "key": "alt+l", "command": "workbench.action.tasks.runTask", "args": "launch" }
 ```
+(using a LÖVE launcher extension won't work, since it will expect the main.lua in the root directory)
 
 - Install [Love2d Snippets](https://marketplace.visualstudio.com/items?itemName=pixelwar.love2dsnippets), which makes your life easier.
 
