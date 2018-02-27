@@ -46,7 +46,7 @@ gulp.task("reg-animations", function () {
 	return gulp.src(["./src/**/*.ani.png"], { read: false })
 		.pipe(size({ showFiles: true }))
 		.pipe(func.forEach(function (file, enc) {
-			let d = path.dirname(file.path).replace(__dirname + "/", "");
+			let d = path.dirname(file.path).replace(__dirname + "/", "").replace(__dirname + "\\", "");
 			let g = path.win32.basename(file.path).split(/_/)[0];
 			if (animations.length < 1 || animations.indexOf([d, g]) < 0) {
 				animations.push([d, g]);
@@ -121,6 +121,7 @@ gulp.task("make-win", function () {
 			proc.on("exit", function (code) {
 				fs.unlinkSync("dist/win/love.exe");
 				fs.unlinkSync("dist/win/lovec.exe");
+				fs.unlinkSync("dist/win/Uninstall.exe");
 			});
 		}));
 });

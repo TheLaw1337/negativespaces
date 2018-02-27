@@ -1,6 +1,6 @@
 
 module.exports = {
-	"srcExt": "lua,png,jpg", // files to copy to dist
+	"srcExt": "lua,png,jpg", // files to copy to dist, prevent spaces between commas
 
 	"makeWin": false, // will create build exe on default build (no final SFX compression, feel free to pull request)
 	"loveWinDir": "/Users/marty/love-win32", // contains love.exe and dll-files
