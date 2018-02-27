@@ -1,3 +1,5 @@
+![LÖVE + VSCode Logo](README_LOGO.png "NewGame - Visual Studio Code Template for the LÖVE framework")
+
 # Your new game project #
 
 This is your VSCode template for building your LÖVE game. It's tested on Windows and Mac, should work on Linux, too.
