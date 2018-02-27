@@ -1,5 +1,7 @@
 # Your new game project #
 
+This is your VSCode template for building your LÖVE game. It's tested on Windows and Mac, should work on Linux, too.
+
 Start by forking or cloning this repo and open it with Visual Studio Code.
 
 ## Preparing your build ##
@@ -18,7 +20,7 @@ npm install
 
 - Install [Love2d Snippets](https://marketplace.visualstudio.com/items?itemName=pixelwar.love2dsnippets), which makes your life easier.
 
-- Configure your `gulfconf.js` to point to the right directories. Toggle on what you need to prepare. 
+- Configure your `gulfconf.js` to point to the right directories. Toggle make variables for your target platforms. (Mac not supported yet, Android and iOS will only copy files, not build) 
 
 ## Tasks ##
 
@@ -50,7 +52,7 @@ Combines the `.love` file with `love.exe` to the folder `dist/win` and copies `.
 
 ### gulp make-android ###
 
-Copies the `.love` file and all files at `inject/android` to the android port and runs `gradlew build` in that folder. 
+Copies the `.love` file and all files at `inject/android` to the android port and runs `gradlew build` in that folder. (Except that it does not run `gradlew build` for now, but it will, later. Keep updated.)
 
 ### gulp make-mac ###
 
