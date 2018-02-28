@@ -1,14 +1,14 @@
-![L�VE + VSCode Logo](README_LOGO.png "NewGame - Visual Studio Code Template for the L�VE framework")
+![LÖVE + VSCode Logo](README_LOGO.png "NewGame - Visual Studio Code Template for the L�VE framework")
 
 # Your new game project #
 
-This is your VSCode template for building your L�VE game. It's tested on Windows and Mac, should work on Linux, too.
+This is your VSCode template for building your LÖVE game. It's tested on Windows and Mac, should work on Linux, too.
 
 Start by forking or cloning this repo and open it with Visual Studio Code.
 
 ## Preparing your build ##
 
-- Download and install [NodeJS (incl. npm)](https://nodejs.org) or use your package manager of your choice (like apd-get, brew, etc.) to get it.
+- Download and install [NodeJS (incl. npm)](https://nodejs.org) or use your package manager of your choice (like apt-get, brew, etc.) to get it.
 
 - Enter your terminal (View > Integrated Terminal) and prepare:
 
