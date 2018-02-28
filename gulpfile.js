@@ -2,7 +2,6 @@ let exec = require("child_process").exec;
 let fs = require("fs")
 let path = require("path");
 let process = require("process");
-let mkdirp = require("mkdirp");
 let zipFolder = require("zip-folder");
 let gulp = require("gulp");
 let conf = require("./gulpconf");
@@ -143,11 +142,7 @@ gulp.task("make-android", function () {
 
 gulp.task("make-mac", function () {
 	return new Promise(function (resolve, reject) {
-		mkdirp("./mac", function (err) {
-			if (err) reject();
-		});
 		throw new Error("Mac build is not implemented as of now.");
-		reject();
 	});
 });
 
