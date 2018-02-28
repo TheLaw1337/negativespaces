@@ -30,6 +30,8 @@ npm install
 
 ## Tasks ##
 
+Except for the keyboard shortcuts, all tasks are triggered by typing those in the Terminal.
+
 ### ALT+L (Launch) ###
 
 Starts the game at the src directory. If it does not, please check the contents of `launch.sh` (UNIX) / `launch.bat` (WINDOWS) and adjust.
