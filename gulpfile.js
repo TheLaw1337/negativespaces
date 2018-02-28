@@ -127,17 +127,28 @@ gulp.task("make-win", function () {
 
 gulp.task("make-android", function () {
 	let p = (win ? conf.windows["loveAndroidDir"] + "\\" : conf["loveAndroidDir"] + "/");
-	return gulp.src("./inject/android/**/*", { read: true })
+	return new Promise(function(resolve, reject) {
+		gulp.src("./inject/android/**/*", { read: true })
 		.pipe(size({ showFiles: true }))
 		.pipe(gulp.dest(path.normalize(p)))
 		.pipe(func.atEnd(function() {
-			fs.copyFileSync("./dist/game.love", path.normalize(p) + "/app/src/main/assets/game.love");
-			// let cmd = "\"" + p + "gradlew build\"";
-			// console.log(cmd);
-			// proc = exec(cmd, function(err, stdout, stderr) {
-			// 	console.log(stdout);
-			// });
+			resolve();
 		}));
+	}).then(new Promise(function(resolve, reject) {
+		fs.copyFileSync("./dist/game.love", path.normalize(p) + "/app/src/main/assets/game.love");
+		let cmd = "cd \"" + p + "\" && \"" + p + "gradlew\" build";
+		console.log(cmd);
+		proc = exec(cmd);
+		proc.stdout.on('data', function (stdout) {
+			console.log(stdout);
+		});		
+		proc.stderr.on('data', function (stderr) {
+			console.log(stderr);
+		});		
+		proc.on('exit', function (code) {
+			code && reject() || resolve();
+		});
+	}))
 });
 
 gulp.task("make-mac", function () {

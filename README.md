@@ -60,7 +60,7 @@ Combines the `.love` file with `love.exe` to the folder `dist/win` and copies `.
 
 ### gulp make-android ###
 
-Copies the `.love` file and all files at `inject/android` to the Android port and runs `gradlew build` in that folder. (Except that it does not run `gradlew build` for now, but it will, later. Keep updated.)
+Copies the `.love` file and all files at `inject/android` to the Android port and runs `gradlew build` in that folder. 
 
 ### gulp make-mac ###
 
