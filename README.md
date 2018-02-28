@@ -1,16 +1,19 @@
-![LÖVE + VSCode Logo](README_LOGO.png "NewGame - Visual Studio Code Template for the LÖVE framework")
+![Lï¿½VE + VSCode Logo](README_LOGO.png "NewGame - Visual Studio Code Template for the Lï¿½VE framework")
 
 # Your new game project #
 
-This is your VSCode template for building your LÖVE game. It's tested on Windows and Mac, should work on Linux, too.
+This is your VSCode template for building your Lï¿½VE game. It's tested on Windows and Mac, should work on Linux, too.
 
 Start by forking or cloning this repo and open it with Visual Studio Code.
 
 ## Preparing your build ##
 
+- Download and install [NodeJS (incl. npm)](https://nodejs.org) or use your package manager of your choice (like apd-get, brew, etc.) to get it.
+
 - Enter your terminal (View > Integrated Terminal) and prepare:
 
 ```bash
+npm install -g gulp
 npm install
 ```
 
@@ -19,7 +22,7 @@ npm install
 ```json
 { "key": "alt+l", "command": "workbench.action.tasks.runTask", "args": "launch" }
 ```
-(using a LÖVE launcher extension won't work, since it will expect the main.lua in the root directory)
+(using a LÃ–VE launcher extension won't work, since it will expect the main.lua in the root directory)
 
 - Install [Love2d Snippets](https://marketplace.visualstudio.com/items?itemName=pixelwar.love2dsnippets), which makes your life easier.
 
@@ -55,7 +58,7 @@ Combines the `.love` file with `love.exe` to the folder `dist/win` and copies `.
 
 ### gulp make-android ###
 
-Copies the `.love` file and all files at `inject/android` to the android port and runs `gradlew build` in that folder. (Except that it does not run `gradlew build` for now, but it will, later. Keep updated.)
+Copies the `.love` file and all files at `inject/android` to the Android port and runs `gradlew build` in that folder. (Except that it does not run `gradlew build` for now, but it will, later. Keep updated.)
 
 ### gulp make-mac ###
 

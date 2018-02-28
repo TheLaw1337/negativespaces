@@ -6,9 +6,9 @@
   "dependencies": {
     "gulp": "^3.9.1",
     "gulp-clean": "^0.4.0",
-    "gulp-foreach": "^0.1.0",
     "gulp-delete-file": "^1.0.2",
     "gulp-exec": "^3.0.1",
+    "gulp-foreach": "^0.1.0",
     "gulp-function": "^2.2.14",
     "gulp-luaminify": "0.0.1",
     "gulp-plumber": "^1.2.0",

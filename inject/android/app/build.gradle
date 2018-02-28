@@ -4,7 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
-        applicationId "com.ricle.happysquirrel"
+        applicationId "org.example.newgame"
         versionCode 1
         versionName "0.1.0"
         minSdkVersion 14
