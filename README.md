@@ -73,3 +73,7 @@ Copies the `.love` file and all files at `inject/ios` to the iOS port. You have 
 ### gulp / gulp build ###
 
 Does all tasks above, except for the launch task. `make-*` task will only execute if they are enabled in the `gulpconf.js`
+
+## Questions? ##
+
+Visit the [Forum Thread](https://love2d.org/forums/viewtopic.php?p=218846#p218827)
