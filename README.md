@@ -34,7 +34,7 @@ Except for the keyboard shortcuts, all tasks are triggered by typing those in th
 
 ### ALT+L (Launch) ###
 
-Starts the game at the src directory. If it does not, please check the contents of `launch.sh` (UNIX) / `launch.bat` (WINDOWS) and adjust.
+Starts the game at the src directory. If it does not, please check the tasks.json. On Windows, you have to use the Command Promt (instead of PowerShell) as default terminal. 
 
 ### gulp dist ###
 

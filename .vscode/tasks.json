@@ -7,17 +7,46 @@
 	],
 	"tasks": [
 		{
-			"label": "launch",
-			"type": "shell",
-			"command": "./launch.sh",
+			"label": "kill",
+			"type": "process",
+			"command": "sh",
+			"args": [ "-c", "pkill love || true" ],
 			"windows": {
-				"command": ".\\launch.bat"
+				"command": "cmd",
+				"args": [ "/C", "taskkill /IM love.exe && exit /b 0" ]
 			},
 			"group": "test",
 			"presentation": {
 				"reveal": "always",
-				"panel": "new"
+				"panel": "dedicated"
 			}
+		},
+		{
+			"label": "run",
+			"type": "shell",
+			"command": "/Applications/love.app/Contents/MacOS/love ./src",
+			"windows": {
+				"command": "\"C:\\Program Files (x86)\\LOVE\\love.exe\" ./src --console"
+			},
+			"group": "test",
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated"
+			}
+		},
+		{
+			"label": "launch",
+			"type": "shell",
+			"command": "",
+			"windows": {
+				"command": ""
+			},
+			"group": "test",
+			"presentation": {
+				"reveal": "silent",
+				"panel": "dedicated"
+			},
+			"dependsOn": [ "kill", "run" ]
 		}
 	]
 }
