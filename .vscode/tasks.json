@@ -15,11 +15,11 @@
 				"command": "cmd",
 				"args": [ "/C", "git pull upstream master" ]
 			},
-			"group": "test",
+			"group": "none",
 			"presentation": {
-				"reveal": "always",
+				"reveal": "silent",
 				"panel": "shared"
-			}
+			},
 		},
 		{
 			"label": "kill",
@@ -30,11 +30,11 @@
 				"command": "cmd",
 				"args": [ "/C", "taskkill /IM love.exe && exit /b 0" ]
 			},
-			"group": "test",
+			"group": "none",
 			"presentation": {
-				"reveal": "always",
+				"reveal": "silent",
 				"panel": "shared"
-			}
+			},
 		},
 		{
 			"label": "run",
@@ -47,16 +47,16 @@
 			"presentation": {
 				"reveal": "always",
 				"panel": "shared"
-			}
+			},
 		},
 		{
 			"label": "launch",
 			"type": "shell",
-			"command": "",
+			"command": "exit 0",
 			"windows": {
-				"command": ""
+				"command": "exit 0"
 			},
-			"group": "test",
+			"group": "build",
 			"presentation": {
 				"reveal": "silent",
 				"panel": "shared"
