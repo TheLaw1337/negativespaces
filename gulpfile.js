@@ -32,7 +32,7 @@ gulp.task("dist", ["delete-dist"], function () {
 });
 
 gulp.task('minify-lua', function () {
-	return gulp.src(["./dist/src/**/*.lua"], { base: "." })
+	return gulp.src(["./dist/src/**/*.lua", "!./dist/src/" + conf["minifyExclude"]], { base: "." })
 	.pipe(plumber())
 		.pipe(size({ showFiles: true }))
 		.pipe(luaminify())
@@ -120,7 +120,9 @@ gulp.task("make-win", function () {
 			proc.on("exit", function (code) {
 				fs.unlinkSync("dist/win/love.exe");
 				fs.unlinkSync("dist/win/lovec.exe");
-				fs.unlinkSync("dist/win/Uninstall.exe");
+				if(fs.existsSync("dist/win/Uninstall.exe")) {
+					fs.unlinkSync("dist/win/Uninstall.exe");
+				}
 			});
 		}));
 });
