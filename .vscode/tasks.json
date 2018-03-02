@@ -7,6 +7,21 @@
 	],
 	"tasks": [
 		{
+			"label": "pullup",
+			"type": "process",
+			"command": "sh",
+			"args": [ "-c", "git pull upstream master" ],
+			"windows": {
+				"command": "cmd",
+				"args": [ "/C", "git pull upstream master" ]
+			},
+			"group": "test",
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated"
+			}
+		},
+		{
 			"label": "kill",
 			"type": "process",
 			"command": "sh",
