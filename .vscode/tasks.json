@@ -18,7 +18,7 @@
 			"group": "test",
 			"presentation": {
 				"reveal": "always",
-				"panel": "dedicated"
+				"panel": "shared"
 			}
 		},
 		{
@@ -33,7 +33,7 @@
 			"group": "test",
 			"presentation": {
 				"reveal": "always",
-				"panel": "dedicated"
+				"panel": "shared"
 			}
 		},
 		{
@@ -46,7 +46,7 @@
 			"group": "test",
 			"presentation": {
 				"reveal": "always",
-				"panel": "dedicated"
+				"panel": "shared"
 			}
 		},
 		{
@@ -59,7 +59,7 @@
 			"group": "test",
 			"presentation": {
 				"reveal": "silent",
-				"panel": "dedicated"
+				"panel": "shared"
 			},
 			"dependsOn": [ "kill", "run" ]
 		}
