@@ -1,5 +1,5 @@
 function love.load(args)
-	print("Hello World.")
+	print("Hello World!")
 end
 
 function love.draw()
