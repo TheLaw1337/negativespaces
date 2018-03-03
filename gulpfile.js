@@ -1,3 +1,28 @@
+/* 
+gulpfile.js
+Visual Studio Code Template for the LÖVE framework
+by Martin Braun (martin.braun.1991@live.com)
+
+MIT LICENSE
+Copyright (c) 2018 Martin Braun
+Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+The above copyright notice and this permission notice shall be included
+in all copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+
 let exec = require("child_process").exec;
 let fs = require("fs")
 let path = require("path");
@@ -44,13 +69,13 @@ gulp.task("reg-animations", function () {
 	animations = [];
 	return gulp.src(["./src/**/*.ani.png"], { read: false })
 		.pipe(size({ showFiles: true }))
-		.pipe(func.forEach(function (file, enc) {
+		.pipe(func.forEach(function (file, s) {
 			let d = path.dirname(file.path).replace(__dirname + "/", "").replace(__dirname + "\\", "");
 			let g = path.win32.basename(file.path).split(/_/)[0];
 			if (animations.length < 1 || animations.indexOf([d, g]) < 0) {
 				animations.push([d, g]);
 			}
-			return enc
+			return s;
 		}));
 });
 
@@ -74,7 +99,7 @@ gulp.task("merge-animations", ["reg-animations"], function () {
 				.on('end', resolve);
 		}));
 	});
-	return Promise.all(subTasks).then();
+	return Promise.all(subTasks);
 });
 
 gulp.task("clean", function() {
