@@ -26,7 +26,7 @@ npm install
 
 - Install [Love2d Snippets](https://marketplace.visualstudio.com/items?itemName=pixelwar.love2dsnippets), which makes your life easier.
 
-- Configure your `gulfconf.js` to point to the right directories. Toggle make variables for your target platforms. (Mac not supported yet, Android and iOS will only copy files, not build) 
+- Configure your `gulfconf.js` to point to the right directories. Toggle make variables for your target platforms. (Mac not supported yet, iOS will only copy files, not build) 
 
 ## Tasks ##
 
