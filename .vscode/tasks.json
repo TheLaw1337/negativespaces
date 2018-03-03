@@ -41,7 +41,7 @@
 			"type": "shell",
 			"command": "/Applications/love.app/Contents/MacOS/love ./src",
 			"windows": {
-				"command": "\"C:\\Program Files (x86)\\LOVE\\love.exe\" ./src --console"
+				"command": "\"C:\\Program Files\\LOVE\\love.exe\" ./src --console"
 			},
 			"group": "test",
 			"presentation": {
