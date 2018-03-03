@@ -7,7 +7,7 @@ let gulp = require("gulp");
 let conf = require("./gulpconf");
 
 let runSequence = require("run-sequence");
-var size = require("gulp-size");
+let size = require("gulp-size");
 let plumber = require("gulp-plumber");
 let func = require("gulp-function");
 let clean = require("gulp-clean");
