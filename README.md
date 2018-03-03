@@ -26,11 +26,7 @@ npm install
 
 - Install [Love2d Snippets](https://marketplace.visualstudio.com/items?itemName=pixelwar.love2dsnippets), which makes your life easier.
 
-<<<<<<< HEAD
-- Configure your `.vscode/tasks.json` (launcher configuration) and `gulfconf.js` (build configuration) to point to the right directories. Toggle make-variables in your gulpconf for your target platforms. (Mac not supported yet, Android and iOS will only copy files, not build) 
-=======
-- Configure your `gulfconf.js` to point to the right directories. Toggle make variables for your target platforms. (Mac not supported yet, iOS will only copy files, not build) 
->>>>>>> c50e32519ee557779905d2c8a1f55b48cf5e2217
+- Configure your `.vscode/tasks.json` (launcher configuration) and `gulfconf.js` (build configuration) to point to the right directories. Toggle make-variables in your gulpconf for your target platforms. (Mac not supported yet, iOS will only copy files, not build) 
 
 ## Tasks ##
 
