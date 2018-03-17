@@ -20,7 +20,8 @@ npm install
 - Go to Preferences > Keyboard Shortcuts and paste this:
 
 ```json
-{ "key": "alt+l", "command": "workbench.action.tasks.runTask", "args": "launch" }
+{ "key": "ctrl+l", "command": "workbench.action.tasks.runTask", "args": "launch" },
+{ "key": "cmd+l", "command": "workbench.action.tasks.runTask", "args": "launch" },
 ```
 (using a LÖVE launcher extension won't work, since it will expect the main.lua in the root directory)
 
@@ -32,7 +33,7 @@ npm install
 
 Except for the keyboard shortcuts, all tasks are triggered by typing those in the Terminal.
 
-### ALT+L (Launch) ###
+### CTRL+L / CMD+L (Launch) ###
 
 Starts the game at the src directory. If it does not, please check the tasks.json. On Windows, you have to use the Command Promt (instead of PowerShell) as default terminal. 
 
