@@ -1,3 +1,8 @@
+# Negative spaces #
+
+training game for learning Love2D framework
+
+
 ![LÖVE + VSCode Logo](README_LOGO.png "NewGame - Visual Studio Code Template for the L�VE framework")
 
 # Your new game project #
