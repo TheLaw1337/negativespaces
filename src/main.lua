@@ -30,10 +30,12 @@ function love.load(args)
 		{0,2,2,2,2,0,2,0,0,2,0,0,1,1,1,0,0,1,0,1},
 		{0,0,0,0,2,2,2,2,2,2,0,1,1,0,1,1,1,1,1,1}
 	}
+	print("done")
 end
 
 function love.draw()
 	love.graphics.scale(4, 4)
+	-- Drawing full map
 	for i,row in ipairs(tilemap) do
 		for j,tile in ipairs(row) do
 				local v = tilemap[i][j] + 1
