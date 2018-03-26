@@ -37,7 +37,7 @@ function love.load(args)
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0},
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -52,10 +52,13 @@ end
 function love.draw()
 	love.graphics.scale(4, 4)
 	-- Drawing full map
-	for i,row in ipairs(tilemap) do
-		for j,tile in ipairs(row) do
-				local v = tilemap[i][j] + 1
-				love.graphics.draw(tileset, quads[v], j * width, i * height)
+	for i,row in ipairs(tilemap) do  --searching rows
+		for j,tile in ipairs(row) do --searching tiles
+				local v = tilemap[i][j] + 1 -- increment coordinates
+				if fogofwar[i][j] == 1 then
+					love.graphics.draw(tileset, quads[v], j * width, i * height) --draw a tile
+				end
+				
 		end
 	end
 end
