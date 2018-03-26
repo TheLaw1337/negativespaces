@@ -1,5 +1,9 @@
 function love.load(args)
 	tileset = love.graphics.newImage("map_tileset.png")
+	black = love.graphics.newImage("black.png")
+	white = love.graphics.newImage("white.png")
+	black:setFilter('nearest')
+	white:setFilter('nearest')
 
 	local tileset_width = tileset:getWidth()
 	local tileset_height = tileset:getHeight()
@@ -8,6 +12,8 @@ function love.load(args)
 
 	width = tileset_width / 2
 	height = tileset_height / 2
+
+	-- 8,8 160,88
 
 	quads = {}
 
@@ -58,7 +64,8 @@ function love.draw()
 				if fogofwar[i][j] == 1 then
 					love.graphics.draw(tileset, quads[v], j * width, i * height) --draw a tile
 				end
-				
 		end
 	end
+	love.graphics.draw(white, 8, 8)
+	love.graphics.draw(black, 160, 88)
 end
