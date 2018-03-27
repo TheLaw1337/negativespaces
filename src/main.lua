@@ -1,13 +1,16 @@
 function love.load(args)
+	love.graphics.setDefaultFilter('nearest', 'nearest')
 	tileset = love.graphics.newImage("map_tileset.png")
 	black = love.graphics.newImage("black.png")
 	white = love.graphics.newImage("white.png")
-	black:setFilter('nearest')
-	white:setFilter('nearest')
+	font = love.graphics.newFont("zx_spectrum-7.ttf", 64)
+	font:setFilter('nearest', 'nearest')
+	love.graphics.setFont(font)
+	
 
 	local tileset_width = tileset:getWidth()
 	local tileset_height = tileset:getHeight()
-	tileset:setFilter('nearest')
+
 	love.graphics.setBackgroundColor(102, 153, 153)
 
 	width = tileset_width / 2
@@ -51,21 +54,25 @@ function love.load(args)
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1}
 		
 	}
-
-	print("done")
 end
 
 function love.draw()
+
+	love.graphics.push("all")
+	love.graphics.setColor(0, 0, 0)
+	love.graphics.print("This is a test of the font", 32, 400)
+	love.graphics.pop()
+
 	love.graphics.scale(4, 4)
-	-- Drawing full map
-	for i,row in ipairs(tilemap) do  --searching rows
-		for j,tile in ipairs(row) do --searching tiles
-				local v = tilemap[i][j] + 1 -- increment coordinates
+	for i,row in ipairs(tilemap) do  
+		for j,tile in ipairs(row) do 
+				local v = tilemap[i][j] + 1
 				if fogofwar[i][j] == 1 then
-					love.graphics.draw(tileset, quads[v], j * width, i * height) --draw a tile
+					love.graphics.draw(tileset, quads[v], j * width, i * height)
 				end
 		end
 	end
+
 	love.graphics.draw(white, 8, 8)
 	love.graphics.draw(black, 160, 88)
 end
