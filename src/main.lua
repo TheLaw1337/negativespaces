@@ -60,7 +60,7 @@ function love.draw()
 
 	love.graphics.push("all")
 	love.graphics.setColor(0, 0, 0)
-	love.graphics.print("This is a test of the font", 32, 400)
+	love.graphics.print("NEGATIVE SPACE", 32, 400)
 	love.graphics.pop()
 
 	love.graphics.scale(4, 4)
