@@ -1,4 +1,4 @@
-# Negative spaces (working title)#
+# Negative spaces (working title) #
 
 training game for learning Love2D framework, using VSCode template by MartyMaro https://bitbucket.org/MartyMaro/love2d-newgame-vscodetemplate
 original readme below
