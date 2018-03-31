@@ -67,30 +67,60 @@ end
 function love.keypressed(key)
 	if key == "a" then
 		p1_x = p1_x - 1
+		fow()
 	elseif key == "d" then
 		p1_x = p1_x + 1
+		fow()
 	elseif key == "w" then
 		p1_y = p1_y - 1
+		fow()
 	elseif key == "s" then
 		p1_y = p1_y + 1
+		fow()
 	end
 
 	if key == "left" then
 		p2_x = p2_x - 1
+		fow()
 	elseif key == "right" then
 		p2_x = p2_x + 1
+		fow()
 	elseif key == "up" then
 		p2_y = p2_y - 1
+		fow()
 	elseif key == "down" then
 		p2_y = p2_y + 1
+		fow()
 	end
 end
 
-function love.draw()
+function fow()
+	-- updating fog of war
+	fogofwar[p1_y][p1_x - 1] = 1 -- while moving left
+	fogofwar[p1_y][p1_x + 1] = 1 -- while moving right
+	if p1_y > 1 then
+	fogofwar[p1_y - 1][p1_x] = 1 -- while moving up
+	end
+	if p1_y < 11 then
+	fogofwar[p1_y + 1][p1_x] = 1 -- while moving down
+	end
+	
 
+	fogofwar[p2_y][p2_x - 1] = 1 -- while moving left
+	fogofwar[p2_y][p2_x + 1] = 1 -- while moving right
+	if p2_y > 1 then
+	fogofwar[p2_y - 1][p2_x] = 1 -- while moving up
+	end
+	if p2_y < 11 then
+	fogofwar[p2_y + 1][p2_x] = 1 -- while moving down
+	end
+	
+end
+
+function love.draw()
 	love.graphics.push("all")
 	love.graphics.setColor(0, 0, 0)
-	love.graphics.print("NEGATIVE SPACE", 32, 400)
+	love.graphics.print("NEGATIVE SPACES", 32, 400)
 	love.graphics.pop()
 
 	love.graphics.scale(4, 4)
