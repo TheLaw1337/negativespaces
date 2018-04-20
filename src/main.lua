@@ -79,16 +79,16 @@ function love.keypressed(key)
 		fow()
 	end
 
-	if key == "left" then
+	if key == "left" and p2_x > 1 then
 		p2_x = p2_x - 1
 		fow()
-	elseif key == "right" then
+	elseif key == "right" and p2_x < 20 then
 		p2_x = p2_x + 1
 		fow()
-	elseif key == "up" then
+	elseif key == "up" and p2_y > 1 then
 		p2_y = p2_y - 1
 		fow()
-	elseif key == "down" then
+	elseif key == "down" and p2_y < 11 then
 		p2_y = p2_y + 1
 		fow()
 	end
