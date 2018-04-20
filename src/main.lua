@@ -65,16 +65,16 @@ function love.load(args)
 end
 
 function love.keypressed(key)
-	if key == "a" then
+	if (key == "a") and p1_x > 1 then
 		p1_x = p1_x - 1
 		fow()
-	elseif key == "d" then
+	elseif key == "d" and p1_x < 20 then
 		p1_x = p1_x + 1
 		fow()
-	elseif key == "w" then
+	elseif (key == "w") and p1_y > 1 then
 		p1_y = p1_y - 1
 		fow()
-	elseif key == "s" then
+	elseif key == "s" and p1_y < 11 then
 		p1_y = p1_y + 1
 		fow()
 	end
