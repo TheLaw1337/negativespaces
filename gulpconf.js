@@ -16,7 +16,7 @@ module.exports = {
 	"loveiOSDir": "/Users/user/_my_/XC/love2d-admob-inapppurchases-gamecenter-ios", // injection files will work with with the AdMob+InAppPurchases-GameCenter fork - not available yet
 
 	"windows" : { // all paths above for Windows systems
-		"loveWinDir": "C:\\Program Files\\LOVE",
+		"loveWinDir":  "C:\\Program Files\\LOVE",
 		"loveAndroidDir": "Z:\\_my_\\AS\\love2d-admob-inappbilling-gameservices-android",
 		"loveiOSDir": "Z:\\_my_\\XC\\love2d-admob-inapppurchases-gamecenter-ios",
 	}
