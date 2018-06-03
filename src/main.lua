@@ -61,21 +61,25 @@ function love.load(args)
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1}
 		
 	}
-	print(player_width)
+	
 end
 
 function love.keypressed(key)
-	if (key == "a") and p1_x > 1 then
+	if (key == "a") and p1_x > 1 and tilemap[p1_y][p1_x - 1] == 2 then 
 		p1_x = p1_x - 1
+		print(p1_x, p1_y)
 		fow()
-	elseif key == "d" and p1_x < 20 then
+	elseif key == "d" and p1_x < 20 and tilemap[p1_y][p1_x + 1] == 2 then
+		print(p1_x, p1_y)
 		p1_x = p1_x + 1
 		fow()
-	elseif (key == "w") and p1_y > 1 then
+	elseif (key == "w") and p1_y > 1 and tilemap[p1_y - 1][p1_x] == 2 then
 		p1_y = p1_y - 1
+		print(p1_x, p1_y)
 		fow()
-	elseif key == "s" and p1_y < 11 then
+	elseif key == "s" and p1_y < 11 and tilemap[p1_y + 1][p1_x] == 2 then
 		p1_y = p1_y + 1
+		print(p1_x, p1_y)
 		fow()
 	end
 
@@ -91,6 +95,12 @@ function love.keypressed(key)
 	elseif key == "down" and p2_y < 11 then
 		p2_y = p2_y + 1
 		fow()
+	end
+end
+
+function canGo1()
+	if tilemap[p1_x][p1_y] == 2 then return true
+	else return false
 	end
 end
 
@@ -117,6 +127,7 @@ function fow()
 	
 end
 
+
 function love.draw()
 	love.graphics.push("all")
 	love.graphics.setColor(0, 0, 0)
@@ -133,6 +144,7 @@ function love.draw()
 		end
 	end
 
+	
 	love.graphics.draw(white, player_width * p1_x, player_height * p1_y)
 	love.graphics.draw(black, player_width * p2_x, player_height * p2_y)
 end
