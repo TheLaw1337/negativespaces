@@ -65,44 +65,87 @@ function love.load(args)
 end
 
 function love.keypressed(key)
-	if (key == "a") and p1_x > 1 and tilemap[p1_y][p1_x - 1] == 2 then 
-		p1_x = p1_x - 1
-		print(p1_x, p1_y)
+	--[[local nextX = p1_x
+	local nextY = p1_y
+	
+	if (key == "a") and p1_x > 1 then 
+		nextX = nextX - 1
+		--print(p1_x, p1_y)
 		fow()
-	elseif key == "d" and p1_x < 20 and tilemap[p1_y][p1_x + 1] == 2 then
-		print(p1_x, p1_y)
-		p1_x = p1_x + 1
+	elseif key == "d" and p1_x < 20 then
+		--print(p1_x, p1_y)
+		nextX = nextX + 1
 		fow()
-	elseif (key == "w") and p1_y > 1 and tilemap[p1_y - 1][p1_x] == 2 then
-		p1_y = p1_y - 1
-		print(p1_x, p1_y)
+	elseif (key == "w") and p1_y > 1 then
+		nextY = nextY - 1
+		--print(p1_x, p1_y)
 		fow()
-	elseif key == "s" and p1_y < 11 and tilemap[p1_y + 1][p1_x] == 2 then
-		p1_y = p1_y + 1
-		print(p1_x, p1_y)
+	elseif key == "s" and p1_y < 11 then
+		nextY = nextY + 1
+		--print(p1_x, p1_y)
 		fow()
 	end
+
+	if tilemap[nextY][nextX] ~=2 then
+		p1_x = nextX
+		p1_y = nextY
+
+		if tilemap[p1_y][p1_x] == 3 then
+			print("You win!")
+		end
+	end
+--]]
+
+	local nextX = p1_x
+	local nextY = p1_y
+
+	if key == "w" and p1_y > 1 then
+		nextY = nextY - 1
+	elseif key == "s" and p1_y < 11 then
+		nextY = nextY + 1 -- other keys!
+	elseif key == "a" and p1_x > 1 then
+		nextX = nextX - 1 -- other keys!
+	elseif key == "d" and p1_x < 20 then
+		nextX = nextX + 1 -- other keys!	
+	end
+
+	if tilemap[nextY][nextX] == 2 or tilemap[nextY][nextX] == 3 then -- not a wall, move the player
+		p1_x = nextX
+		p1_y = nextY
+		fow()
+
+		if tilemap[p1_y][p1_x] == 3 then --finish!
+			print("You win!")
+		end
+	end
+
+	local p2next_x = p2_x
+	local p2next_y = p2_y
 
 	if key == "left" and p2_x > 1 then
-		p2_x = p2_x - 1
-		fow()
+		p2next_x = p2next_x - 1
 	elseif key == "right" and p2_x < 20 then
-		p2_x = p2_x + 1
-		fow()
+		p2next_x = p2next_x + 1
+		print(p2_x, p2_y)
 	elseif key == "up" and p2_y > 1 then
-		p2_y = p2_y - 1
-		fow()
+		p2next_y = p2next_y - 1
+		print(p2_x, p2_y)
 	elseif key == "down" and p2_y < 11 then
-		p2_y = p2_y + 1
+		p2next_y = p2next_y + 1
+		print(p2_x, p2_y)
+	end
+
+	if tilemap[p2next_y][p2next_x] == 1 or tilemap[p2next_y][p2next_x] == 3 then -- not a wall, move the player
+		p2_x = p2next_x
+		p2_y = p2next_y
 		fow()
+
+		--[[if tilemap[p1_y][p1_x] == 3 then --finish!
+			print("You win!")
+		end--]]
 	end
 end
 
-function canGo1()
-	if tilemap[p1_x][p1_y] == 2 then return true
-	else return false
-	end
-end
 
 function fow()
 	-- updating fog of war
