@@ -115,7 +115,7 @@ function love.keypressed(key)
 		fow()
 
 		if tilemap[p1_y][p1_x] == 3 then --finish!
-			print("You win!")
+			print("Player 1 - You win!")
 		end
 	end
 
@@ -140,9 +140,9 @@ function love.keypressed(key)
 		p2_y = p2next_y
 		fow()
 
-		--[[if tilemap[p1_y][p1_x] == 3 then --finish!
-			print("You win!")
-		end--]]
+		if tilemap[p2_y][p2_x] == 3 then --finish!
+			print("Player 2 - You win!")
+		end
 	end
 end
 
