@@ -72,11 +72,15 @@ end
 function love.keypressed(key)
 	if gamestate == "menu" then
 		if key == "return" then
-			gamestate = "game"
+		  gamestate = "game"
 		end
-	end
-	
-	if gamestate == "game" then
+	  elseif gamestate == "game" then
+		if key == "return" then
+		  gamestate = "roll"
+		end
+	  
+		
+		
 		local nextX = p1_x
 		local nextY = p1_y
 
@@ -198,4 +202,26 @@ function love.draw()
 			love.graphics.draw(white, player_width * p1_x, player_height * p1_y)
 			love.graphics.draw(black, player_width * p2_x, player_height * p2_y)
 	end
+
+	if gamestate == "roll" then 
+		love.graphics.push("all")
+			love.graphics.setColor(0, 0, 0)
+
+			love.graphics.printf("ROLL A DICE!", 0, 400, scr_width, "center")
+			love.graphics.pop()
+	
+			love.graphics.scale(4, 4)
+			for i,row in ipairs(tilemap) do  
+				for j,tile in ipairs(row) do 
+						local v = tilemap[i][j] + 1
+						if fogofwar[i][j] == 1 then
+							love.graphics.draw(tileset, quads[v], j * width, i * height)
+						end
+				end
+			end
+	
+			
+			love.graphics.draw(white, player_width * p1_x, player_height * p1_y)
+			love.graphics.draw(black, player_width * p2_x, player_height * p2_y)
+		end
 end
