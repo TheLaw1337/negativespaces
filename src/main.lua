@@ -1,5 +1,6 @@
 function love.load(args)
 	gamestate = "menu"
+	current_player = 1
 	
 	love.graphics.setDefaultFilter('nearest', 'nearest')
 	tileset = love.graphics.newImage("map_tileset.png")
@@ -95,7 +96,7 @@ function love.keypressed(key)
 			fow()
 
 			if tilemap[p1_y][p1_x] == 3 then --finish!
-				print("You win")
+				print("Player 1 - You win!")
 			end
 		end
 
@@ -121,7 +122,7 @@ function love.keypressed(key)
 			fow()
 
 			if tilemap[p2_y][p2_x] == 3 then --finish!
-				print("Player 2 wins")
+				print("Player 2 - You win!")
 			end
 		end
 	end
@@ -178,8 +179,9 @@ function love.draw()
 	if gamestate == "game" then
 			love.graphics.push("all")
 			love.graphics.setColor(0, 0, 0)
-			
-			
+
+			love.graphics.printf("PLAYER " .. current_player .. " - YOUR TURN", 0, 400, scr_width, "center")
+			love.graphics.printf("PRESS ENTER TO ROLL A DICE", 0, 430, scr_width, "center")
 			love.graphics.pop()
 	
 			love.graphics.scale(4, 4)
