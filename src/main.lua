@@ -3,6 +3,95 @@ Gamestate = require "gamestate"
 menu = {}
 game = {}
 roll = {}
+move = {}
+
+local isRolling = true
+
+function love.load(args)
+	current_player = 1
+	
+	love.graphics.setDefaultFilter('nearest', 'nearest')
+	tileset = love.graphics.newImage("map_tileset.png")
+	black = love.graphics.newImage("black.png")
+	white = love.graphics.newImage("white.png")
+	font = love.graphics.newFont("zx_spectrum-7.ttf", 64)
+	font:setFilter('nearest', 'nearest')
+	largefont = love.graphics.newFont("zx_spectrum-7.ttf", 256)
+	largefont:setFilter('nearest', 'nearest')
+	love.graphics.setFont(font)
+	scr_width = love.graphics.getWidth()
+	
+
+	local tileset_width = tileset:getWidth()
+	local tileset_height = tileset:getHeight()
+	player_width = black:getWidth()
+	player_height = black:getHeight()
+
+	love.graphics.setBackgroundColor(102, 153, 153)
+
+	width = tileset_width / 2
+	height = tileset_height / 2
+
+	p1_x = 1
+	p1_y = 1
+	p2_x = 20
+	p2_y = 11
+
+	-- 8,8 160,88
+
+	quads = {}
+
+	for i=0,1 do
+		for j=0,1 do
+			table.insert( quads, love.graphics.newQuad(width * j, height * i, width, height, tileset_width, tileset_height))
+		end
+	end
+			
+	tilemap = {
+		{2,2,2,2,2,0,0,0,0,0,1,0,1,0,0,0,1,0,1,0},
+		{2,0,0,0,2,0,0,2,2,2,1,1,1,0,1,1,1,1,1,1},
+		{2,0,0,0,2,0,2,2,0,0,1,0,1,0,1,0,1,0,1,0},
+		{2,2,2,0,2,2,2,0,0,0,1,1,1,1,1,0,1,1,1,0},
+		{0,0,2,0,0,2,0,0,0,0,1,0,0,0,1,0,1,0,1,0},
+		{0,0,2,0,0,2,2,2,2,2,3,1,1,0,1,0,1,0,1,1},
+		{2,2,2,2,2,2,0,2,0,0,2,0,1,0,1,1,1,1,1,0},
+		{0,0,2,0,0,0,0,0,0,0,2,0,1,1,1,0,0,0,1,0},
+		{0,0,2,0,0,0,2,0,0,2,2,0,0,0,1,0,0,0,1,1},
+		{0,2,2,2,2,0,2,0,0,2,0,0,1,1,1,0,0,1,0,1},
+		{0,0,0,0,2,2,2,2,2,2,0,1,1,0,1,1,1,1,1,1}
+	}
+
+	fogofwar = {
+		{1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1}
+		
+		
+	}
+	
+	Gamestate.switch(menu)
+end
+
+function love.update(dt)
+	Gamestate:update(dt)
+end
+
+function love.keypressed(key)
+	Gamestate.keypressed(key)
+end
+
+function love.draw()
+	Gamestate:draw()
+end
+
 function menu:keypressed(key, code)
 	if key == "return" then
 		Gamestate.switch(game)
@@ -11,9 +100,19 @@ end
 
 function menu:draw()
 	love.graphics.push("all")
+	flash = (love.timer.getTime() % 1) > 1 / 2
+	if flash == true then
+		love.graphics.setColor(0, 0, 0)
+		love.graphics.rectangle("fill", 140, 478, 520, 28)
+		love.graphics.setColor(255, 255, 255)
+		love.graphics.printf("PRESS ENTER TO START", 0, 450, scr_width, "center")
+	elseif flash == false then
+		love.graphics.setColor(0, 0, 0)
+		love.graphics.printf("PRESS ENTER TO START", 0, 450, scr_width, "center")
+	end
 	love.graphics.setColor(0, 0, 0)
 	love.graphics.printf("NEGATIVE SPACES", 0, 400, scr_width, "center")
-	love.graphics.printf( "PRESS START BUTTON", 0, 500, scr_width, "center")
+	--love.graphics.printf( "PRESS START BUTTON", 0, 500, scr_width, "center")
 	love.graphics.pop()
 
 	love.graphics.scale(4, 4)
@@ -89,9 +188,21 @@ end
 function game:draw()
 		love.graphics.push("all")
 		love.graphics.setColor(0, 0, 0)
+		
+		
 
 		love.graphics.printf("PLAYER " .. current_player .. " - YOUR TURN", 0, 400, scr_width, "center")
-		love.graphics.printf("PRESS ENTER TO ROLL A DICE", 0, 430, scr_width, "center")
+		flash = (love.timer.getTime() % 1) > 1 / 2
+		if flash == true then
+			love.graphics.setColor(0, 0, 0)
+			love.graphics.rectangle("fill", 65, 458, 670, 28)
+			love.graphics.setColor(255, 255, 255)
+			love.graphics.printf("PRESS ENTER TO ROLL A DICE", 0, 430, scr_width, "center")
+		elseif flash == false then
+			love.graphics.setColor(0, 0, 0)
+			love.graphics.printf("PRESS ENTER TO ROLL A DICE", 0, 430, scr_width, "center")
+		end
+		
 		love.graphics.pop()
 
 		love.graphics.scale(4, 4)
@@ -110,12 +221,34 @@ function game:draw()
 	end
 
 function roll:draw()
-	love.graphics.push("all")
+		love.graphics.push("all")
 		love.graphics.setColor(0, 0, 0)
+		
+		--love.graphics.printf("ROLL A DICE!", 0, 400, scr_width, "center")
+		love.graphics.setFont(largefont)
 
-		love.graphics.printf("ROLL A DICE!", 0, 400, scr_width, "center")
+		if isRolling then
+			number = love.math.random(6)
+		end
+		love.graphics.printf(number, 0, 290, scr_width, "center")
+		
+
+		if isRolling == false then
+			love.graphics.setFont(font)
+			flash = (love.timer.getTime() % 1) > 1 / 2
+		if flash == true then
+			love.graphics.setColor(0, 0, 0)
+			love.graphics.rectangle("fill", 100, 528, 600, 28)
+			love.graphics.setColor(255, 255, 255)
+			love.graphics.printf("PRESS ENTER TO CONTINUE", 0, 500, scr_width, "center")
+		elseif flash == false then
+			love.graphics.setColor(0, 0, 0)
+			love.graphics.printf("PRESS ENTER TO CONTINUE", 0, 500, scr_width, "center")
+		end
+		end
+
 		love.graphics.pop()
-
+		
 		love.graphics.scale(4, 4)
 		for i,row in ipairs(tilemap) do  
 			for j,tile in ipairs(row) do 
@@ -129,85 +262,18 @@ function roll:draw()
 		
 		love.graphics.draw(white, player_width * p1_x, player_height * p1_y)
 		love.graphics.draw(black, player_width * p2_x, player_height * p2_y)
-	end
-
-function love.update(dt)
-	Gamestate:update(dt)
 end
 
-function love.load(args)
-	current_player = 1
-	
-	love.graphics.setDefaultFilter('nearest', 'nearest')
-	tileset = love.graphics.newImage("map_tileset.png")
-	black = love.graphics.newImage("black.png")
-	white = love.graphics.newImage("white.png")
-	font = love.graphics.newFont("zx_spectrum-7.ttf", 64)
-	font:setFilter('nearest', 'nearest')
-	love.graphics.setFont(font)
-	scr_width = love.graphics.getWidth()
-	
+function move:draw()
 
-	local tileset_width = tileset:getWidth()
-	local tileset_height = tileset:getHeight()
-	player_width = black:getWidth()
-	player_height = black:getHeight()
-
-	love.graphics.setBackgroundColor(102, 153, 153)
-
-	width = tileset_width / 2
-	height = tileset_height / 2
-
-	p1_x = 1
-	p1_y = 1
-	p2_x = 20
-	p2_y = 11
-
-	-- 8,8 160,88
-
-	quads = {}
-
-	for i=0,1 do
-		for j=0,1 do
-			table.insert( quads, love.graphics.newQuad(width * j, height * i, width, height, tileset_width, tileset_height))
-		end
-	end
-			
-	tilemap = {
-		{2,2,2,2,2,0,0,0,0,0,1,0,1,0,0,0,1,0,1,0},
-		{2,0,0,0,2,0,0,2,2,2,1,1,1,0,1,1,1,1,1,1},
-		{2,0,0,0,2,0,2,2,0,0,1,0,1,0,1,0,1,0,1,0},
-		{2,2,2,0,2,2,2,0,0,0,1,1,1,1,1,0,1,1,1,0},
-		{0,0,2,0,0,2,0,0,0,0,1,0,0,0,1,0,1,0,1,0},
-		{0,0,2,0,0,2,2,2,2,2,3,1,1,0,1,0,1,0,1,1},
-		{2,2,2,2,2,2,0,2,0,0,2,0,1,0,1,1,1,1,1,0},
-		{0,0,2,0,0,0,0,0,0,0,2,0,1,1,1,0,0,0,1,0},
-		{0,0,2,0,0,0,2,0,0,2,2,0,0,0,1,0,0,0,1,1},
-		{0,2,2,2,2,0,2,0,0,2,0,0,1,1,1,0,0,1,0,1},
-		{0,0,0,0,2,2,2,2,2,2,0,1,1,0,1,1,1,1,1,1}
-	}
-
-	fogofwar = {
-		{1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1}
-		
-		
-	}
-	
-	Gamestate.switch(menu)
 end
 
-function love.keypressed(key)
-	Gamestate.keypressed(key)
+function roll:keypressed(key, code)
+	if key == 'return' and isRolling then
+		isRolling = false
+	elseif key == 'return' and isRolling == false then
+		Gamestate.switch(move)
+	end
 end
 
 
@@ -235,6 +301,3 @@ function fow()
 end
 
 
-function love.draw()
-	Gamestate:draw()
-end
