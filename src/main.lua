@@ -6,9 +6,10 @@ roll = {}
 move = {}
 
 local isRolling = true
+--local canGo = true
+local current_player = 2
 
 function love.load(args)
-	current_player = 1
 	
 	love.graphics.setDefaultFilter('nearest', 'nearest')
 	tileset = love.graphics.newImage("map_tileset.png")
@@ -135,54 +136,7 @@ function game:keypressed(key, code)
 		Gamestate.switch(roll)
 	end
 
-	local nextX = p1_x
-	local nextY = p1_y
-
-	if key == "w" and p1_y > 1 then
-		nextY = nextY - 1
-	elseif key == "s" and p1_y < 11 then
-		nextY = nextY + 1 -- other keys!
-	elseif key == "a" and p1_x > 1 then
-		nextX = nextX - 1 -- other keys!
-	elseif key == "d" and p1_x < 20 then
-		nextX = nextX + 1 -- other keys!	
-	end
-
-	if tilemap[nextY][nextX] == 2 or tilemap[nextY][nextX] == 3 then -- not a wall, move the player
-		p1_x = nextX
-		p1_y = nextY
-		fow()
-
-		if tilemap[p1_y][p1_x] == 3 then --finish!
-			print("Player 1 - You win!")
-		end
-	end
-
-	local p2next_x = p2_x
-	local p2next_y = p2_y
-
-	if key == "left" and p2_x > 1 then
-		p2next_x = p2next_x - 1
-	elseif key == "right" and p2_x < 20 then
-		p2next_x = p2next_x + 1
-		print(p2_x, p2_y)
-	elseif key == "up" and p2_y > 1 then
-		p2next_y = p2next_y - 1
-		print(p2_x, p2_y)
-	elseif key == "down" and p2_y < 11 then
-		p2next_y = p2next_y + 1
-		print(p2_x, p2_y)
-	end
-
-	if tilemap[p2next_y][p2next_x] == 1 or tilemap[p2next_y][p2next_x] == 3 then -- not a wall, move the player
-		p2_x = p2next_x
-		p2_y = p2next_y
-		fow()
-
-		if tilemap[p2_y][p2_x] == 3 then --finish!
-			print("Player 2 - You win!")
-		end
-	end
+	
 end
 
 function game:draw()
@@ -218,7 +172,15 @@ function game:draw()
 		
 		love.graphics.draw(white, player_width * p1_x, player_height * p1_y)
 		love.graphics.draw(black, player_width * p2_x, player_height * p2_y)
+end
+
+function roll:keypressed(key, code)
+	if key == 'return' and isRolling then
+		isRolling = false
+	elseif key == 'return' and isRolling == false then
+		Gamestate.switch(move)
 	end
+end
 
 function roll:draw()
 		love.graphics.push("all")
@@ -264,18 +226,93 @@ function roll:draw()
 		love.graphics.draw(black, player_width * p2_x, player_height * p2_y)
 end
 
-function move:draw()
-
-end
-
-function roll:keypressed(key, code)
-	if key == 'return' and isRolling then
-		isRolling = false
-	elseif key == 'return' and isRolling == false then
-		Gamestate.switch(move)
+function move:keypressed(key, code)
+	if current_player == 1 and number > 0 then
+		local nextX = p1_x
+		local nextY = p1_y
+	 
+		if key == "w" then
+			nextY = nextY - 1
+		elseif key == "s" then
+			nextY = nextY + 1
+		elseif key == "a" then
+			nextX = nextX - 1
+		elseif key == "d" then
+			nextX = nextX + 1
+		end
+	 
+		if tilemap[nextY] and tilemap[nextY][nextX] and (tilemap[nextY][nextX] == 2 or tilemap[nextY][nextX] == 3) then -- not a wall, move the player
+			p1_x = nextX
+			p1_y = nextY
+			number = number - 1
+			fow()
+	 
+			if tilemap[p1_y][p1_x] == 3 then --finish!
+				print("Player 1 - You win!")
+			end
+		end
+	elseif current_player == 2 and number > 0 then
+			local p2nextX = p2_x
+			local p2nextY = p2_y
+			print("works")
+		 
+			if key == "up" then
+				p2nextY = p2nextY - 1
+			elseif key == "down" then
+				p2nextY = p2nextY + 1
+			elseif key == "left" then
+				p2nextX = p2nextX - 1
+			elseif key == "right" then
+				p2nextX = p2nextX + 1
+			end
+		 
+			if tilemap[p2nextY] and tilemap[p2nextY][p2nextX] and (tilemap[p2nextY][p2nextX] == 1 or tilemap[p2nextY][p2nextX] == 3) then -- not a wall, move the player
+				p2_x = p2nextX
+				p2_y = p2nextY
+				number = number - 1
+				fow()
+		 
+				if tilemap[p2_y][p2_x] == 3 then --finish!
+					print("Player 1 - You win!")
+				end
+			end
 	end
+	
+	
 end
 
+function move:draw()
+	love.graphics.push("all")
+		love.graphics.setColor(0, 0, 0)
+		
+		--love.graphics.printf("ROLL A DICE!", 0, 400, scr_width, "center")
+		love.graphics.setFont(largefont)
+
+		love.graphics.printf(number, 0, 290, scr_width, "center")
+
+		if number == 0 then
+			print("zero")
+		end
+	
+	love.graphics.pop()
+	love.graphics.scale(4, 4)
+		for i,row in ipairs(tilemap) do  
+			for j,tile in ipairs(row) do 
+					local v = tilemap[i][j] + 1
+					if fogofwar[i][j] == 1 then
+						love.graphics.draw(tileset, quads[v], j * width, i * height)
+					end
+			end
+		end
+
+		
+		love.graphics.draw(white, player_width * p1_x, player_height * p1_y)
+		love.graphics.draw(black, player_width * p2_x, player_height * p2_y)
+end
+
+function move:update()
+	
+end
 
 function fow()
 	-- updating fog of war
