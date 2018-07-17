@@ -9,6 +9,7 @@ local isRolling = true
 --local canGo = true
 local current_player = 2
 
+
 function love.load(args)
 	
 	love.graphics.setDefaultFilter('nearest', 'nearest')
@@ -143,8 +144,6 @@ function game:draw()
 		love.graphics.push("all")
 		love.graphics.setColor(0, 0, 0)
 		
-		
-
 		love.graphics.printf("PLAYER " .. current_player .. " - YOUR TURN", 0, 400, scr_width, "center")
 		flash = (love.timer.getTime() % 1) > 1 / 2
 		if flash == true then
@@ -227,7 +226,7 @@ function roll:draw()
 end
 
 function move:keypressed(key, code)
-	if current_player == 1 and number > 0 then
+	if current_player == 1 and number > 0 and (key == "w" or key == "s" or key == "a" or key == "d") then
 		local nextX = p1_x
 		local nextY = p1_y
 	 
@@ -251,10 +250,9 @@ function move:keypressed(key, code)
 				print("Player 1 - You win!")
 			end
 		end
-	elseif current_player == 2 and number > 0 then
+	elseif current_player == 2 and number > 0 and (key == "up" or key == "down" or key == "left" or key == "right")then
 			local p2nextX = p2_x
 			local p2nextY = p2_y
-			print("works")
 		 
 			if key == "up" then
 				p2nextY = p2nextY - 1
@@ -273,28 +271,32 @@ function move:keypressed(key, code)
 				fow()
 		 
 				if tilemap[p2_y][p2_x] == 3 then --finish!
-					print("Player 1 - You win!")
+					print("Player 2 - You win!")
 				end
 			end
 	end
-	
-	
 end
 
 function move:draw()
 	love.graphics.push("all")
-		love.graphics.setColor(0, 0, 0)
-		
-		--love.graphics.printf("ROLL A DICE!", 0, 400, scr_width, "center")
-		love.graphics.setFont(largefont)
-
-		love.graphics.printf(number, 0, 290, scr_width, "center")
-
-		if number == 0 then
-			print("zero")
+		flash = (love.timer.getTime() % 1) > 1 / 2
+		if flash == true and number == 0 then
+			love.graphics.setColor(0, 0, 0)
+			love.graphics.rectangle("fill", 180, 528, 440, 28)
+			love.graphics.setColor(255, 255, 255)
+			love.graphics.printf("IS THAT OKAY? Y/N", 0, 500, scr_width, "center")
+		elseif flash == false and number == 0 then
+			love.graphics.setColor(0, 0, 0)
+			love.graphics.printf("IS THAT OKAY? Y/N", 0, 500, scr_width, "center")
 		end
 	
+		love.graphics.setColor(0, 0, 0)
+		love.graphics.setFont(largefont)
+		love.graphics.printf(number, 0, 290, scr_width, "center")
+
+	
 	love.graphics.pop()
+	
 	love.graphics.scale(4, 4)
 		for i,row in ipairs(tilemap) do  
 			for j,tile in ipairs(row) do 
@@ -308,11 +310,9 @@ function move:draw()
 		
 		love.graphics.draw(white, player_width * p1_x, player_height * p1_y)
 		love.graphics.draw(black, player_width * p2_x, player_height * p2_y)
+		
 end
 
-function move:update()
-	
-end
 
 function fow()
 	-- updating fog of war
@@ -336,5 +336,3 @@ function fow()
 	end
 	
 end
-
-
