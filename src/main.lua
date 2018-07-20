@@ -10,7 +10,7 @@ local isRolling = true
 local endTurn = false
 local current_player = 1
 local prevFow = {}
-
+local copy = {}
 
 function love.load(args)
 	
@@ -185,7 +185,9 @@ end
 function roll:keypressed(key, code)
 	if key == 'return' and isRolling then
 		isRolling = false
+		rollednumber = number
 	elseif key == 'return' and isRolling == false then
+		copy = deepcopy(fogofwar)
 		Gamestate.switch(move)
 	end
 end
@@ -300,11 +302,15 @@ function move:keypressed(key, code)
 		if current_player == 1 then
 			p1_x = p1startX
 			p1_y = p1startY
-			
+			fogofwar = copy
+			copy = deepcopy(fogofwar)
+			number = rollednumber
 		elseif current_player == 2 then
 			p2_x = p2startX
 			p2_y = p2startY
-			
+			fogofwar = copy
+			copy = deepcopy(fogofwar)
+			number = rollednumber
 		end
 	end
 end
@@ -368,4 +374,19 @@ function fow()
 	fogofwar[p2_y + 1][p2_x] = 1 -- while moving down
 	end
 	
+end
+
+function deepcopy(orig)
+    local orig_type = type(orig)
+    local copy
+    if orig_type == 'table' then
+        copy = {}
+        for orig_key, orig_value in next, orig, nil do
+            copy[deepcopy(orig_key)] = deepcopy(orig_value)
+        end
+        setmetatable(copy, deepcopy(getmetatable(orig)))
+    else -- number, string, boolean, etc
+        copy = orig
+    end
+    return copy
 end
