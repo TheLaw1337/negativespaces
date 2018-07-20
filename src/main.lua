@@ -4,6 +4,7 @@ menu = {}
 game = {}
 roll = {}
 move = {}
+win = {}
 
 local isRolling = true
 --local canGo = true
@@ -22,6 +23,8 @@ function love.load(args)
 	font:setFilter('nearest', 'nearest')
 	largefont = love.graphics.newFont("zx_spectrum-7.ttf", 256)
 	largefont:setFilter('nearest', 'nearest')
+	midfont = love.graphics.newFont("zx_spectrum-7.ttf", 96)
+	midfont:setFilter('nearest', 'nearest')
 	love.graphics.setFont(font)
 	scr_width = love.graphics.getWidth()
 	
@@ -258,7 +261,7 @@ function move:keypressed(key, code)
 			fow()
 	 
 			if tilemap[p1_y][p1_x] == 3 then --finish!
-				print("Player 1 - You win!")
+				Gamestate.switch(win)
 			end
 		end
 	elseif current_player == 2 and number > 0 and (key == "up" or key == "down" or key == "left" or key == "right")then
@@ -282,7 +285,7 @@ function move:keypressed(key, code)
 				fow()
 		 
 				if tilemap[p2_y][p2_x] == 3 then --finish!
-					print("Player 2 - You win!")
+					Gamestate.switch(win)
 				end
 			end
 	end
@@ -305,12 +308,14 @@ function move:keypressed(key, code)
 			fogofwar = copy
 			copy = deepcopy(fogofwar)
 			number = rollednumber
+			endTurn = false
 		elseif current_player == 2 then
 			p2_x = p2startX
 			p2_y = p2startY
 			fogofwar = copy
 			copy = deepcopy(fogofwar)
 			number = rollednumber
+			endTurn = false
 		end
 	end
 end
@@ -352,6 +357,27 @@ function move:draw()
 		
 end
 
+function win:draw()
+	love.graphics.push("all")
+		love.graphics.setFont(midfont)
+		love.graphics.setColor(0,0,0)
+		love.graphics.printf("PLAYER " .. current_player .. " \nYOU WIN!!!", 0, 375, scr_width, "center")
+	love.graphics.pop()
+	
+	love.graphics.scale(4, 4)
+		for i,row in ipairs(tilemap) do  
+			for j,tile in ipairs(row) do 
+					local v = tilemap[i][j] + 1
+					if fogofwar[i][j] == 1 then
+						love.graphics.draw(tileset, quads[v], j * width, i * height)
+					end
+			end
+		end
+
+		
+		love.graphics.draw(white, player_width * p1_x, player_height * p1_y)
+		love.graphics.draw(black, player_width * p2_x, player_height * p2_y)
+end
 
 function fow()
 	-- updating fog of war
