@@ -7,7 +7,9 @@ move = {}
 
 local isRolling = true
 --local canGo = true
-local current_player = 2
+local endTurn = false
+local current_player = 1
+local prevFow = {}
 
 
 function love.load(args)
@@ -62,6 +64,8 @@ function love.load(args)
 		{0,2,2,2,2,0,2,0,0,2,0,0,1,1,1,0,0,1,0,1},
 		{0,0,0,0,2,2,2,2,2,2,0,1,1,0,1,1,1,1,1,1}
 	}
+
+
 
 	fogofwar = {
 		{1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -127,7 +131,6 @@ function menu:draw()
 		end
 	end
 
-	
 	love.graphics.draw(white, player_width * p1_x, player_height * p1_y)
 	love.graphics.draw(black, player_width * p2_x, player_height * p2_y)
 end
@@ -141,6 +144,12 @@ function game:keypressed(key, code)
 end
 
 function game:draw()
+		p1startX = p1_x
+		p1startY = p1_y
+		p2startX = p2_x
+		p2startY = p2_y
+		startfog = fogofwar
+	
 		love.graphics.push("all")
 		love.graphics.setColor(0, 0, 0)
 		
@@ -209,7 +218,7 @@ function roll:draw()
 		end
 
 		love.graphics.pop()
-		
+
 		love.graphics.scale(4, 4)
 		for i,row in ipairs(tilemap) do  
 			for j,tile in ipairs(row) do 
@@ -275,6 +284,29 @@ function move:keypressed(key, code)
 				end
 			end
 	end
+
+	if endTurn == true and key == "y" then
+		endTurn = false
+		if current_player == 1 then
+			current_player = 2
+			isRolling = true
+			Gamestate.switch(game)
+		elseif current_player == 2 then
+			current_player = 1
+			isRolling = true
+			Gamestate.switch(game)
+		end
+	elseif endTurn == true and key == "n" then
+		if current_player == 1 then
+			p1_x = p1startX
+			p1_y = p1startY
+			
+		elseif current_player == 2 then
+			p2_x = p2startX
+			p2_y = p2startY
+			
+		end
+	end
 end
 
 function move:draw()
@@ -285,6 +317,7 @@ function move:draw()
 			love.graphics.rectangle("fill", 180, 528, 440, 28)
 			love.graphics.setColor(255, 255, 255)
 			love.graphics.printf("IS THAT OKAY? Y/N", 0, 500, scr_width, "center")
+			endTurn = true
 		elseif flash == false and number == 0 then
 			love.graphics.setColor(0, 0, 0)
 			love.graphics.printf("IS THAT OKAY? Y/N", 0, 500, scr_width, "center")
