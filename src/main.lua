@@ -32,6 +32,7 @@ function love.load(args)
 	error = love.audio.newSource("error.wav", "static")
 	go = love.audio.newSource("go.wav", "static")
 	ok = love.audio.newSource("ok.wav", "static")
+	victory = love.audio.newSource("win.wav", "static")
 	
 
 	local tileset_width = tileset:getWidth()
@@ -266,6 +267,7 @@ function move:keypressed(key, code)
 			fow()
 			local instance = go:play()
 			if tilemap[p1_y][p1_x] == 3 then --finish!
+				victory:play()
 				Gamestate.switch(win)
 			end
 		else 
@@ -294,6 +296,7 @@ function move:keypressed(key, code)
 				local instance = go:play()
 				fow()
 		 		if tilemap[p2_y][p2_x] == 3 then --finish!
+					victory:play()
 					Gamestate.switch(win)
 				end
 			else 
@@ -407,6 +410,13 @@ function win:draw()
 		love.graphics.draw(black, player_width * p2_x, player_height * p2_y)
 end
 
+function win:keypressed(key, code)
+	if key == "escape" then
+		love.event.quit()
+	elseif key == "r" then
+		love.event.quit("restart")
+	end
+end
 function fow()
 	-- updating fog of war
 	fogofwar[p1_y][p1_x - 1] = 1 -- while moving left
