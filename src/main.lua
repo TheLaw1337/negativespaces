@@ -27,6 +27,10 @@ function love.load(args)
 	midfont:setFilter('nearest', 'nearest')
 	love.graphics.setFont(font)
 	scr_width = love.graphics.getWidth()
+
+	error = love.audio.newSource("error.wav", "static")
+	go = love.audio.newSource("go.wav", "static")
+	ok = love.audio.newSource("ok.wav", "static")
 	
 
 	local tileset_width = tileset:getWidth()
@@ -259,12 +263,16 @@ function move:keypressed(key, code)
 			p1_y = nextY
 			number = number - 1
 			fow()
-	 
+			go:play()
 			if tilemap[p1_y][p1_x] == 3 then --finish!
 				Gamestate.switch(win)
 			end
+		else 
+			error:play()
 		end
-	elseif current_player == 2 and number > 0 and (key == "up" or key == "down" or key == "left" or key == "right")then
+
+
+		elseif current_player == 2 and number > 0 and (key == "up" or key == "down" or key == "left" or key == "right")then
 			local p2nextX = p2_x
 			local p2nextY = p2_y
 		 
@@ -282,11 +290,13 @@ function move:keypressed(key, code)
 				p2_x = p2nextX
 				p2_y = p2nextY
 				number = number - 1
+				go:play()
 				fow()
-		 
-				if tilemap[p2_y][p2_x] == 3 then --finish!
+		 		if tilemap[p2_y][p2_x] == 3 then --finish!
 					Gamestate.switch(win)
 				end
+			else 
+				error:play()
 			end
 	end
 
@@ -295,10 +305,12 @@ function move:keypressed(key, code)
 		if current_player == 1 then
 			current_player = 2
 			isRolling = true
+			ok:play()
 			Gamestate.switch(game)
 		elseif current_player == 2 then
 			current_player = 1
 			isRolling = true
+			okay:play()
 			Gamestate.switch(game)
 		end
 	elseif endTurn == true and key == "n" then
@@ -358,11 +370,26 @@ function move:draw()
 end
 
 function win:draw()
+	
+	
 	love.graphics.push("all")
-		love.graphics.setFont(midfont)
 		love.graphics.setColor(0,0,0)
-		love.graphics.printf("PLAYER " .. current_player .. " \nYOU WIN!!!", 0, 375, scr_width, "center")
+		love.graphics.printf("R TO RESTART, ESC TO QUIT", 0, 540, scr_width, "center")
+		love.graphics.setFont(midfont)
+
+		flash = (love.timer.getTime() % 1) > 1 / 2
+		if flash == true then
+			love.graphics.setColor(0, 0, 0)
+			love.graphics.rectangle("fill", 239, 418, 320, 39)
+			love.graphics.rectangle("fill", 198, 514, 402, 39)
+			love.graphics.setColor(255, 255, 255)
+			love.graphics.printf("PLAYER " .. current_player .. " \nYOU WIN!!!", 0, 375, scr_width, "center")
+		elseif flash == false then
+			love.graphics.setColor(0, 0, 0)
+			love.graphics.printf("PLAYER " .. current_player .. " \nYOU WIN!!!", 0, 375, scr_width, "center")
+		end
 	love.graphics.pop()
+	
 	
 	love.graphics.scale(4, 4)
 		for i,row in ipairs(tilemap) do  
