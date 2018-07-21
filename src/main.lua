@@ -1,4 +1,5 @@
 Gamestate = require "gamestate"
+require 'slam'
 
 menu = {}
 game = {}
@@ -263,7 +264,7 @@ function move:keypressed(key, code)
 			p1_y = nextY
 			number = number - 1
 			fow()
-			go:play()
+			local instance = go:play()
 			if tilemap[p1_y][p1_x] == 3 then --finish!
 				Gamestate.switch(win)
 			end
@@ -290,7 +291,7 @@ function move:keypressed(key, code)
 				p2_x = p2nextX
 				p2_y = p2nextY
 				number = number - 1
-				go:play()
+				local instance = go:play()
 				fow()
 		 		if tilemap[p2_y][p2_x] == 3 then --finish!
 					Gamestate.switch(win)
@@ -310,7 +311,7 @@ function move:keypressed(key, code)
 		elseif current_player == 2 then
 			current_player = 1
 			isRolling = true
-			okay:play()
+			ok:play()
 			Gamestate.switch(game)
 		end
 	elseif endTurn == true and key == "n" then
