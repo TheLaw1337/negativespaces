@@ -4,7 +4,7 @@ a training game for learning [Love2D](https://love2d.org/) framework
 
 ## About my game ##
 
-NEGATIVE SPACE is a board game for two players made in LÖVE (aka Love2D) framework. The goal is to reach the finish tile going down the paths designed for both players. The game end when one of the players reaches the finish tile. Game concept inspired by ["Three Hundred Mechanics" website](http://www.squidi.net/three/entry.php?id=1)
+NEGATIVE SPACE is a board game for two players made with LÖVE (aka Love2D) framework. The goal is to reach the finish tile going down the paths designed for each players. The game ends when one of the players reaches the finish tile. Game concept inspired by ["Three Hundred Mechanics" website](http://www.squidi.net/three/entry.php?id=1)
 
 ## Used libraries and code ##
 
