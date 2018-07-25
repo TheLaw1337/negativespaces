@@ -8,14 +8,12 @@ move = {}
 win = {}
 
 local isRolling = true
---local canGo = true
 local endTurn = false
 local current_player = 1
 local prevFow = {}
 local copy = {}
 
 function love.load(args)
-	
 	love.graphics.setDefaultFilter('nearest', 'nearest')
 	tileset = love.graphics.newImage("map_tileset.png")
 	black = love.graphics.newImage("black.png")
@@ -34,7 +32,6 @@ function love.load(args)
 	ok = love.audio.newSource("ok.wav", "static")
 	victory = love.audio.newSource("win.wav", "static")
 	
-
 	local tileset_width = tileset:getWidth()
 	local tileset_height = tileset:getHeight()
 	player_width = black:getWidth()
@@ -49,8 +46,6 @@ function love.load(args)
 	p1_y = 1
 	p2_x = 20
 	p2_y = 11
-
-	-- 8,8 160,88
 
 	quads = {}
 
@@ -74,8 +69,6 @@ function love.load(args)
 		{0,0,0,0,2,2,2,2,2,2,0,1,1,0,1,1,1,1,1,1}
 	}
 
-
-
 	fogofwar = {
 		{1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 		{1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -88,8 +81,6 @@ function love.load(args)
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1},
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1}
-		
-		
 	}
 	
 	Gamestate.switch(menu)
@@ -148,8 +139,6 @@ function game:keypressed(key, code)
 	if key == "return" then
 		Gamestate.switch(roll)
 	end
-
-	
 end
 
 function game:draw()
@@ -186,7 +175,6 @@ function game:draw()
 			end
 		end
 
-		
 		love.graphics.draw(white, player_width * p1_x, player_height * p1_y)
 		love.graphics.draw(black, player_width * p2_x, player_height * p2_y)
 end
@@ -205,7 +193,6 @@ function roll:draw()
 		love.graphics.push("all")
 		love.graphics.setColor(0, 0, 0)
 		
-		--love.graphics.printf("ROLL A DICE!", 0, 400, scr_width, "center")
 		love.graphics.setFont(largefont)
 
 		if isRolling then
@@ -213,7 +200,6 @@ function roll:draw()
 		end
 		love.graphics.printf(number, 0, 290, scr_width, "center")
 		
-
 		if isRolling == false then
 			love.graphics.setFont(font)
 			flash = (love.timer.getTime() % 1) > 1 / 2
@@ -239,7 +225,6 @@ function roll:draw()
 					end
 			end
 		end
-
 		
 		love.graphics.draw(white, player_width * p1_x, player_height * p1_y)
 		love.graphics.draw(black, player_width * p2_x, player_height * p2_y)
@@ -273,7 +258,6 @@ function move:keypressed(key, code)
 		else 
 			error:play()
 		end
-
 
 		elseif current_player == 2 and number > 0 and (key == "up" or key == "down" or key == "left" or key == "right")then
 			local p2nextX = p2_x
@@ -354,7 +338,6 @@ function move:draw()
 		love.graphics.setFont(largefont)
 		love.graphics.printf(number, 0, 290, scr_width, "center")
 
-	
 	love.graphics.pop()
 	
 	love.graphics.scale(4, 4)
@@ -367,15 +350,12 @@ function move:draw()
 			end
 		end
 
-		
 		love.graphics.draw(white, player_width * p1_x, player_height * p1_y)
 		love.graphics.draw(black, player_width * p2_x, player_height * p2_y)
 		
 end
 
 function win:draw()
-	
-	
 	love.graphics.push("all")
 		love.graphics.setColor(0,0,0)
 		love.graphics.printf("R TO RESTART, ESC TO QUIT", 0, 540, scr_width, "center")
@@ -394,7 +374,6 @@ function win:draw()
 		end
 	love.graphics.pop()
 	
-	
 	love.graphics.scale(4, 4)
 		for i,row in ipairs(tilemap) do  
 			for j,tile in ipairs(row) do 
@@ -405,7 +384,6 @@ function win:draw()
 			end
 		end
 
-		
 		love.graphics.draw(white, player_width * p1_x, player_height * p1_y)
 		love.graphics.draw(black, player_width * p2_x, player_height * p2_y)
 end
@@ -427,7 +405,6 @@ function fow()
 	if p1_y < 11 then
 	fogofwar[p1_y + 1][p1_x] = 1 -- while moving down
 	end
-	
 
 	fogofwar[p2_y][p2_x - 1] = 1 -- while moving left
 	fogofwar[p2_y][p2_x + 1] = 1 -- while moving right

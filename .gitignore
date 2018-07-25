@@ -1,0 +1,13 @@
+.DS_Store
+/.vscode/launch.json
+/dist
+/output
+/node_modules
+/package-lock.json
+/src/**/*.a.png
+/.vscode
+/inject
+gulpconf.js
+gulpfile.js
+package.json
+project.code-workspace
