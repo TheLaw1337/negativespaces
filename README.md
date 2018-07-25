@@ -1,10 +1,6 @@
 # NEGATIVE SPACE #
 
-a training game for learning Love2D framework, using VSCode template by MartyMaro https://bitbucket.org/MartyMaro/love2d-newgame-vscodetemplate
-original readme below
-
-
-![LÖVE + VSCode Logo](README_LOGO.png "NewGame - Visual Studio Code Template for the L�VE framework")
+a training game for learning [Love2D](https://love2d.org/) framework
 
 ## About my game ##
 
@@ -14,6 +10,10 @@ NEGATIVE SPACE is a board game for two players made in LÖVE (aka Love2D) framew
 
 For my project I used following libraries:
 
-- *gamestate.lua*: gamestate library from [hump](https://github.com/vrld/hump) collection;
+- *gamestate.lua*: gamestate library from [hump](https://github.com/vrld/hump) collection by Matthias Richter
 
-- [*SLAM*](https://github.com/vrld/slam): Simple LOVE Audio Manager 
+- [*SLAM*](https://github.com/vrld/slam): Simple LOVE Audio Manager by Matthias Richter
+
+And also:
+
+- [*love2d-newgame-vscodetemplate*](https://bitbucket.org/MartyMaro/love2d-newgame-vscodetemplate): Visual Studio Code template for building LÖVE games by MartyMaro
