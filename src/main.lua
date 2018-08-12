@@ -28,10 +28,14 @@ function love.load(args)
 	scr_width = love.graphics.getWidth()
 
 	error = love.audio.newSource("error.wav", "static")
+	error:setVolume(.6)
 	go = love.audio.newSource("go.wav", "static")
+	go:setVolume(1)
 	ok = love.audio.newSource("ok.wav", "static")
+	ok:setVolume(.6)
 	victory = love.audio.newSource("win.wav", "static")
-	
+	victory:setVolume(.6)
+
 	local tileset_width = tileset:getWidth()
 	local tileset_height = tileset:getHeight()
 	player_width = black:getWidth()
