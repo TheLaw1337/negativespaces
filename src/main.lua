@@ -174,12 +174,12 @@ function game:draw()
 		flash = (love.timer.getTime() % 1) > 1 / 2
 		if flash == true then
 			love.graphics.setColor(0, 0, 0)
-			love.graphics.rectangle("fill", 65, 458, 670, 28)
+			love.graphics.rectangle("fill", 40, 458, 720, 28)
 			love.graphics.setColor(255, 255, 255)
-			love.graphics.printf("PRESS ENTER TO ROLL A DICE", 0, 430, scr_width, "center")
+			love.graphics.printf("PRESS ANY KEY TO ROLL A DICE", 0, 430, scr_width, "center")
 		elseif flash == false then
 			love.graphics.setColor(0, 0, 0)
-			love.graphics.printf("PRESS ENTER TO ROLL A DICE", 0, 430, scr_width, "center")
+			love.graphics.printf("PRESS ANY KEY TO ROLL A DICE", 0, 430, scr_width, "center")
 		end
 		
 		love.graphics.pop()
@@ -221,7 +221,7 @@ function roll:draw()
 		
 		if isRolling == false then
 			love.graphics.setFont(font)
-			flash = (love.timer.getTime() % 1) > 1 / 2
+			--[[flash = (love.timer.getTime() % 1) > 1 / 2
 		if flash == true then
 			love.graphics.setColor(0, 0, 0)
 			love.graphics.rectangle("fill", 100, 528, 600, 28)
@@ -230,7 +230,7 @@ function roll:draw()
 		elseif flash == false then
 			love.graphics.setColor(0, 0, 0)
 			love.graphics.printf("PRESS ENTER TO CONTINUE", 0, 500, scr_width, "center")
-		end
+		end]]--
 		end
 
 		love.graphics.pop()
