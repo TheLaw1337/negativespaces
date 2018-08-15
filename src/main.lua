@@ -77,14 +77,28 @@ function love.load(args)
 		{2,2,2,2,2,0,0,0,2,2,0,0,1,0,0,0,1,0,0,0},
 		{2,0,2,0,2,0,0,0,2,0,0,0,1,0,0,1,1,1,1,0},
 		{2,0,0,0,2,2,2,2,2,0,1,1,1,0,0,0,0,0,1,0},
-		{2,2,0,0,2,0,0,2,0,0,1,0,0,1,1,1,1,0,1,1},
-		{0,2,0,2,2,0,0,2,2,0,1,0,0,1,0,0,1,0,0,1},
-		{0,2,0,0,0,0,0,0,2,2,3,1,1,1,0,0,1,1,1,1},
-		{0,2,2,0,0,0,0,0,0,0,2,0,0,0,0,1,1,0,0,1},
+		{2,2,0,0,2,0,0,0,0,0,1,0,0,1,1,1,1,0,1,1},
+		{0,2,2,2,2,0,0,0,0,0,1,0,0,1,0,0,1,0,0,1},
+		{0,2,0,0,0,0,0,2,2,2,3,1,1,1,0,0,1,1,1,1},
+		{0,2,2,0,0,0,2,2,0,0,2,0,0,0,0,1,1,0,0,1},
 		{0,0,2,2,2,2,2,0,0,2,2,1,1,1,0,1,0,0,0,1},
 		{2,2,2,0,0,0,2,2,2,2,1,1,0,1,0,1,0,0,0,1},
 		{0,0,2,2,0,0,2,0,0,0,1,0,0,1,1,1,1,0,0,1},
 		{0,0,0,2,2,2,2,2,0,0,1,1,1,1,0,0,1,1,1,1}
+	}
+
+	tilemap3 = {
+		{2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{2,0,0,0,2,2,2,2,2,2,1,1,1,0,0,1,1,1,0,0},
+		{2,2,2,0,0,0,0,0,0,2,0,0,1,1,1,1,0,1,0,0},
+		{2,0,0,0,0,2,2,2,2,2,2,0,1,0,0,1,0,1,1,1},
+		{2,2,2,2,2,2,0,0,0,0,2,0,1,0,0,0,0,0,0,1},
+		{0,2,0,0,0,0,0,0,2,2,3,1,1,0,0,0,0,0,0,1},
+		{0,2,0,0,0,0,0,0,2,0,1,0,0,0,0,1,1,1,1,1},
+		{0,2,2,2,2,2,0,0,2,0,1,0,0,0,0,1,0,0,0,1},
+		{0,0,2,0,0,2,2,2,2,2,1,1,1,1,0,1,1,0,0,1},
+		{0,0,2,0,0,0,0,2,0,0,0,1,0,0,0,0,1,0,0,1},
+		{0,0,2,2,2,2,2,2,0,0,0,1,1,1,1,1,1,1,1,1}
 	}
 
 	fogofwar = {
@@ -122,6 +136,9 @@ function menu:keypressed(key, code)
 	end
 	if key == "2" then
 		tilemap = tilemap2
+	end
+	if key == "3" then
+		tilemap = tilemap3
 	end
 end
 
@@ -202,9 +219,9 @@ function roll:keypressed(key, code)
 	if isRolling then
 		isRolling = false
 		rollednumber = number
-	elseif isRolling == false then
+	--[[elseif isRolling == false then
 		copy = deepcopy(fogofwar)
-		Gamestate.switch(move)
+		Gamestate.switch(move)--]]
 	end
 end
 
@@ -216,21 +233,25 @@ function roll:draw()
 
 		if isRolling then
 			number = love.math.random(6)
+
+			love.graphics.printf(number, 0, 290, scr_width, "center")
+
+			love.graphics.setFont(font)
+			flash = (love.timer.getTime() % 1) > 1 / 2
+			if flash == true then
+				love.graphics.setColor(0, 0, 0)
+				love.graphics.rectangle("fill", 20, 528, 764, 28)
+				love.graphics.setColor(255, 255, 255)
+				love.graphics.printf("PRESS ANY KEY TO STOP THE ROLL", 0, 500, scr_width, "center")
+			elseif flash == false then
+				love.graphics.setColor(0, 0, 0)
+				love.graphics.printf("PRESS ANY KEY TO STOP THE ROLL", 0, 500, scr_width, "center")
+			end
 		end
-		love.graphics.printf(number, 0, 290, scr_width, "center")
 		
 		if isRolling == false then
-			love.graphics.setFont(font)
-			--[[flash = (love.timer.getTime() % 1) > 1 / 2
-		if flash == true then
-			love.graphics.setColor(0, 0, 0)
-			love.graphics.rectangle("fill", 100, 528, 600, 28)
-			love.graphics.setColor(255, 255, 255)
-			love.graphics.printf("PRESS ENTER TO CONTINUE", 0, 500, scr_width, "center")
-		elseif flash == false then
-			love.graphics.setColor(0, 0, 0)
-			love.graphics.printf("PRESS ENTER TO CONTINUE", 0, 500, scr_width, "center")
-		end]]--
+			copy = deepcopy(fogofwar)
+			Gamestate.switch(move)
 		end
 
 		love.graphics.pop()
@@ -414,6 +435,7 @@ function win:keypressed(key, code)
 		love.event.quit("restart")
 	end
 end
+
 function fow()
 	-- updating fog of war
 	fogofwar[p1_y][p1_x - 1] = 1 -- while moving left
