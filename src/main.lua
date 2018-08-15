@@ -34,7 +34,7 @@ function love.load(args)
 	ok = love.audio.newSource("ok.wav", "static")
 	ok:setVolume(.6)
 	victory = love.audio.newSource("win.wav", "static")
-	victory:setVolume(.6)
+	victory:setVolume(1)
 
 	local tileset_width = tileset:getWidth()
 	local tileset_height = tileset:getHeight()
@@ -157,9 +157,7 @@ function menu:draw()
 end
 
 function game:keypressed(key, code)
-	if key == "return" then
 		Gamestate.switch(roll)
-	end
 end
 
 function game:draw()
@@ -201,10 +199,10 @@ function game:draw()
 end
 
 function roll:keypressed(key, code)
-	if key == 'return' and isRolling then
+	if isRolling then
 		isRolling = false
 		rollednumber = number
-	elseif key == 'return' and isRolling == false then
+	elseif isRolling == false then
 		copy = deepcopy(fogofwar)
 		Gamestate.switch(move)
 	end
