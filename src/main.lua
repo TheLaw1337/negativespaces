@@ -155,7 +155,8 @@ function menu:draw()
 		love.graphics.printf("PRESS ENTER TO START", 0, 450, scr_width, "center")
 	end
 	love.graphics.setColor(0, 0, 0)
-	love.graphics.printf("NEGATIVE SPACES", 0, 400, scr_width, "center")
+	love.graphics.printf("NEGATIVE SPACE", 0, 400, scr_width, "center")
+	love.graphics.printf("1, 2 or 3 - change map", 0, 500, scr_width, "center")
 	--love.graphics.printf( "PRESS START BUTTON", 0, 500, scr_width, "center")
 	love.graphics.pop()
 
