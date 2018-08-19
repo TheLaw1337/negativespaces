@@ -363,7 +363,7 @@ end
 
 function move:draw()
 	love.graphics.push("all")
-		flash = (love.timer.getTime() % 1) > 1 / 2
+		--[[flash = (love.timer.getTime() % 1) > 1 / 2
 		if flash == true and number == 0 then
 			love.graphics.setColor(0, 0, 0)
 			love.graphics.rectangle("fill", 180, 528, 440, 28)
@@ -374,11 +374,21 @@ function move:draw()
 			love.graphics.setColor(0, 0, 0)
 			love.graphics.printf("IS THAT OKAY? Y/N", 0, 500, scr_width, "center")
 		end
-	
+		--]]
+		if number == 0 then
+			isRolling = true
+			if current_player == 1 then
+				current_player = 2
+			elseif current_player == 2 then
+				current_player = 1
+			end
+			ok:play()
+			Gamestate.switch(game)
+		end
 		love.graphics.setColor(0, 0, 0)
 		love.graphics.setFont(largefont)
 		love.graphics.printf(number, 0, 290, scr_width, "center")
-
+		
 	love.graphics.pop()
 	
 	love.graphics.scale(4, 4)
